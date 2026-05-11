@@ -1,0 +1,10 @@
+{
+  "name": "Game Kastle",
+  "short_name": "GameKastle",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "icons": []
+}

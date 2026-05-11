@@ -1,0 +1,24 @@
+npc_id: fisherman
+name: "Old Thomas"
+
+fallbacks:
+  - "Eh? Speak up, lad."
+  - "I catch fish, not news."
+  - "My hearing's not what it was. Try again."
+
+dialogue:
+  name: "Thomas. Been fishing these waters for fifty years."
+  hi: "Just an old fisherman. Though I know these waters better than anyone alive."
+  look: "A small, wiry old man bundled in layers against the sea wind, squinting at his fishing line with patient, rheumy eyes."
+  fish: "The catch has been poor lately. The fish are scared of something BELOW."
+  below: "Something moving in the deep. I can feel it through my line at night."
+  deep: "Never seen the like in fifty years of fishing. The LIGHTS don't help."
+  lights: "Blue lights, deep in the water. Started three weeks ago. Never seen it before."
+  mystery: "I reported it to the DOCKMASTER. He wrote it down. Nothing changed."
+  sea: "The sea has moods, like people. Right now she's... frightened. I can tell."
+  pier: "I fish from this same pier every day. My father fished here. His father too."
+  dockmaster: "Henrik runs the docks well. Good honest man. He's worried too, though he won't say why."
+  weather: "Storm coming. I can feel it in my old bones. Best seek shelter soon."
+  tide: "The tide's been strange too. Higher than it should be, at odd hours."
+  docks: "Fine docks these are. Henrik runs them well. Good honest harbor folk."
+  bye: "Come back for fresh fish tomorrow, if the sea is willing."

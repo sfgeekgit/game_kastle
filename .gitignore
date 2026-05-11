@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+frontend/dist/
+backend/dist/
+
+# Environment and credentials
+.env
+.db_credentials
+
+# Server docs (not for public repo)
+SERVER*.md
+
+# Claude setup marker
+_setup_by_claude
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Testing
+coverage/
+
+# NPC art assets (stored on server, not in repo)
+frontend/public/npcs/

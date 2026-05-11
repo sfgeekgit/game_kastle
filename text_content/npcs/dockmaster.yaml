@@ -1,0 +1,24 @@
+npc_id: dockmaster
+name: "Henrik the Dockmaster"
+
+fallbacks:
+  - "I manage the docks, not riddles."
+  - "Speak up, I can barely hear over the wind."
+  - "That's not something I can help with. Try the market."
+
+dialogue:
+  name: "Henrik, Dockmaster of the Port of Aldwick."
+  hi: "I keep these docks running. Every SHIP that comes and goes is my responsibility."
+  look: "A brisk, broad-shouldered man with a ledger tucked under his arm and an expression of perpetual mild impatience."
+  ship: "Three vessels in port. The Sea Dancer, the Merchant Prince, and one I don't recognize."
+  unknown: "The unnamed vessel arrived in the night. No manifest, no cargo declared."
+  manifest: "Every ship must declare its cargo. This one refused. I've filed a report."
+  cargo: "Strange containers, sealed tight. They glow faintly at night. Not natural."
+  glow: "I know how it sounds. The guard thinks I'm imagining it. But I am not."
+  merchant: "A drunk merchant came asking about that ship. Claims it belonged to him once."
+  repairs: "The Sea Dancer needs hull work. Harwick's a good sailor — bad luck with storms."
+  marketplace: "West of here. Good stalls, fair traders. Better than dealing with ship merchants."
+  market: "The MARKETPLACE is west of here. Good place to trade your wares."
+  lights: "Those lights in the water? Yes, I've logged them. Something is very wrong."
+  docks: "These docks have stood two hundred years. I intend them to stand two hundred more."
+  bye: "Mind the ropes as you leave. Wouldn't want you tripping into the harbor."

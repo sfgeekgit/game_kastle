@@ -1,0 +1,6 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "bash /home/game_kastle/.claude/statusline-command.sh"
+  }
+}
