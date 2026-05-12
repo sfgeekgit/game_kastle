@@ -2,6 +2,7 @@ import { Router } from 'express';
 import type { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import rateLimit from 'express-rate-limit';
+import { USE_RATE_LIMITS } from '../config.js';
 import passport from './passport.js';
 import { getUserByEmail, registerUser } from '../db/helpers.js';
 
@@ -20,7 +21,7 @@ const authLimiter = rateLimit({
 });
 
 const router = Router();
-router.use(authLimiter);
+if (USE_RATE_LIMITS) router.use(authLimiter);
 
 router.get('/status', (req: Request, res: Response) => {
   if (!req.session?.userId) {
