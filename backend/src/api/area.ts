@@ -12,7 +12,7 @@ import {
   MAP_AREA_DEF_IDS,
 } from '../area/manager.js';
 import { getNpcImages } from '../db/helpers.js';
-import { withAreaLock, readAreaState, findPlayerEntity } from '../area/store.js';
+import { withAreaLock, readAreaState, findPlayerEntity, getAllAreaSnapshots } from '../area/store.js';
 import { updatePlayerPosition } from '../db/helpers.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -267,6 +267,18 @@ router.get('/npc/:npcId/dialogue', async (req: Request, res: Response) => {
     console.error('NPC dialogue error:', err);
     res.status(500).json({ error: 'Failed to load NPC dialogue' });
   }
+});
+
+/**
+ * GET /api/area/overworld
+ * Aggregate presence across all loaded areas. In-memory only — no DB hits.
+ * Returns { rooms: [{ mapId, players: [userId, ...] }, ...] }.
+ * Only areas currently loaded in memory are returned; empty areas not yet
+ * touched since server start will simply be absent (frontend treats as empty).
+ */
+router.get('/overworld', (_req: Request, res: Response) => {
+  const rooms = getAllAreaSnapshots();
+  res.json({ rooms });
 });
 
 export default router;

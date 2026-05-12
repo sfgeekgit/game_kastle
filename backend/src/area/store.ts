@@ -75,6 +75,23 @@ export async function withAreaLock<T>(
   // --- DB WRITES AND OTHER ASYNC WORK GO AFTER THIS LINE ---
 }
 
+/**
+ * Snapshot of all loaded areas — used by the overworld presence endpoint.
+ * Each entry is { mapId, players: [userId,...] }. No lock; the snapshot
+ * may race with concurrent mutations but is internally consistent per-area.
+ */
+export function getAllAreaSnapshots(): Array<{ mapId: string; players: string[] }> {
+  const out: Array<{ mapId: string; players: string[] }> = [];
+  for (const entry of areaStore.values()) {
+    const players: string[] = [];
+    for (const e of entry.state.entities) {
+      if (e.type === 'player') players.push(e.id);
+    }
+    out.push({ mapId: entry.state.mapId, players });
+  }
+  return out;
+}
+
 /** Find a player entity in the area state (no lock — read-only use). */
 export function findPlayerEntity(areaId: number, userId: number): Entity | null {
   const state = readAreaState(areaId);

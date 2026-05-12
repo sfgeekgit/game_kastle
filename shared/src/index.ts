@@ -13,6 +13,8 @@ export { herbalistGarden } from './maps/herbalistGarden.js';
 export { graveyard } from './maps/graveyard.js';
 export { temple } from './maps/temple.js';
 export { dungeonEntrance } from './maps/dungeonEntrance.js';
+export type { OverworldRoom } from './overworldLayout.js';
+export { OVERWORLD_LAYOUT, OVERWORLD_CANVAS_WIDTH, OVERWORLD_CANVAS_HEIGHT } from './overworldLayout.js';
 export type { NpcDialogueData, DialogueFallbacks } from './dialogue.js';
 export { resolveKeyword } from './dialogue.js';
 export * from './combat/index.js';

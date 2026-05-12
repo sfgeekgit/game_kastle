@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { GameView } from './components/GameView.js';
 import { CombatViewPixi } from './components/CombatViewPixi.js';
+import { Overworld } from './components/Overworld.js';
 import { api } from './api.js';
 import { combatApi } from './combatApi.js';
 import type { CombatSessionResult } from './combatApi.js';
@@ -11,7 +12,7 @@ interface AuthStatus {
   isRegistered?: boolean;
 }
 
-type Screen = 'welcome' | 'frontend-game' | 'backend-game' | 'combat-pixi' | 'combat-server' | 'pvp-waiting';
+type Screen = 'welcome' | 'frontend-game' | 'backend-game' | 'combat-pixi' | 'combat-server' | 'pvp-waiting' | 'overworld';
 
 function App() {
   const [auth, setAuth] = useState<AuthStatus | null>(null);
@@ -41,6 +42,10 @@ function App() {
 
   if (screen === 'backend-game') {
     return <GameView mode="backend" onExit={() => setScreen('welcome')} />;
+  }
+
+  if (screen === 'overworld') {
+    return <Overworld onExit={() => setScreen('welcome')} />;
   }
 
   if (screen === 'combat-pixi') {
@@ -102,12 +107,15 @@ function App() {
         </p>
 
         <div className="play-buttons">
-          <button className="play-btn play-btn-frontend" onClick={() => setScreen('frontend-game')}>
-            <span className="play-btn-title">Enter Town</span>
+          <button className="play-btn play-btn-frontend" onClick={() => setScreen('backend-game')}>
+            <span className="play-btn-title">Enter Castle</span>
           </button>
-          <a className="multiplayer-link" onClick={() => setScreen('backend-game')}>
-            Multiplayer Mode — Backend Town
+          <a className="multiplayer-link" onClick={() => setScreen('frontend-game')}>
+            Enter Castle (frontend mode only)
           </a>
+          <button className="play-btn play-btn-frontend" onClick={() => setScreen('overworld')} style={{ marginTop: '8px' }}>
+            <span className="play-btn-title">View Castle</span>
+          </button>
           <button className="play-btn play-btn-frontend" onClick={() => setScreen('combat-pixi')} style={{ marginTop: '12px', backgroundColor: '#6b21a8' }}>
             <span className="play-btn-title">Combat (Pixi)</span>
           </button>

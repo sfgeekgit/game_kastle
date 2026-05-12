@@ -11,13 +11,22 @@ Medieval fantasy multiplayer web game (Ultima 4 inspired).
 
 **NEVER run `npm run build` or `sudo systemctl restart game_kastle`.** All dev/testing uses the live dev servers. The human deploys to production when ready.
 
-### Main dev servers (already running on the main repo at `/home/game_kastle`):
-```bash
-# Frontend (port 5173):
-npm run dev -w frontend
+### Main dev servers
+Both run as systemd services (auto-start on boot, restart on failure). You should NOT need to touch them — code edits hot-reload automatically.
 
-# Backend (port 3016) — run from /home/game_kastle:
-SESSION_SECRET="K6iBttoa/a1YohzKKhoQKvYM7KSS3o57xKRK12gYHy9uP1UeG7KJ15531gl61nqr" DB_PASSWORD="V9cYMvDNBP8qexDIR1pa4XF+eISubZvU" CORS_ORIGIN="https://documentbrain.com" PORT=3016 npx tsx watch backend/src/server.ts
+- **Backend** (Express, tsx watch) — port **3016** — service `game_kastle_dev.service` — logs `/var/log/game_kastle_dev.log`
+- **Frontend** (Vite HMR) — port **5174** — service `game_kastle_dev_vite.service` — logs `/var/log/game_kastle_dev_vite.log`
+
+Service controls:
+```bash
+sudo systemctl status   game_kastle_dev game_kastle_dev_vite
+sudo systemctl restart  game_kastle_dev          # backend
+sudo systemctl restart  game_kastle_dev_vite     # frontend
+```
+
+If you ever need to run the backend manually (debugging a startup crash):
+```bash
+SESSION_SECRET="K6iBttoa/a1YohzKKhoQKvYM7KSS3o57xKRK12gYHy9uP1UeG7KJ15531gl61nqr" DB_PASSWORD="5h7FhUQaUiDOZckn+p3KpV0EAu9AHqMcxqRZje28qu4=" CORS_ORIGIN="https://documentbrain.com" PORT=3016 npx tsx watch backend/src/server.ts
 ```
 
 Backend changes hot-reload via `tsx watch`. Frontend changes appear instantly via Vite HMR.
@@ -35,16 +44,16 @@ Three permanent slots for parallel agent work. Caddy is already configured. Crea
 
 | Slot | URL | Path | Vite port | Express port |
 |------|-----|------|-----------|--------------|
-| wt1 | https://documentbrain.com/game_kastle_wt/  | /home/game_kastle_wt  | 5174 | 3013 |
+| wt1 | https://documentbrain.com/game_kastle_wt/  | /home/game_kastle_wt  | 5178 | 3013 |
 | wt2 | https://documentbrain.com/game_kastle_wt2/ | /home/game_kastle_wt2 | 5176 | 3014 |
 | wt3 | https://documentbrain.com/game_kastle_wt3/ | /home/game_kastle_wt3 | 5177 | 3015 |
 
 ```bash
 # Backend (replace PORT with slot's Express port, run from worktree root):
-SESSION_SECRET="K6iBttoa/a1YohzKKhoQKvYM7KSS3o57xKRK12gYHy9uP1UeG7KJ15531gl61nqr" DB_PASSWORD="V9cYMvDNBP8qexDIR1pa4XF+eISubZvU" CORS_ORIGIN="https://documentbrain.com" PORT=3013 npx tsx watch backend/src/server.ts
+SESSION_SECRET="K6iBttoa/a1YohzKKhoQKvYM7KSS3o57xKRK12gYHy9uP1UeG7KJ15531gl61nqr" DB_PASSWORD="5h7FhUQaUiDOZckn+p3KpV0EAu9AHqMcxqRZje28qu4=" CORS_ORIGIN="https://documentbrain.com" PORT=3013 npx tsx watch backend/src/server.ts
 
 # Frontend (replace VITE_BASE and VITE_PORT with slot's values, run from worktree root):
-VITE_BASE=/game_kastle_wt/ VITE_PORT=5174 npm run dev -w frontend
+VITE_BASE=/game_kastle_wt/ VITE_PORT=5178 npm run dev -w frontend
 ```
 
 ---
@@ -66,4 +75,4 @@ All SQL must go through `backend/src/db/query.ts`. Direct mysql2 imports outside
 - Area manager: `backend/src/area/manager.ts`
 - Movement logic: `shared/src/movement.ts`
 - Frontend game: `frontend/src/components/GameView.tsx`
-- `vite.config.ts` uses `VITE_BASE` env var for base path (defaults to `/game_kastle_dev/`), and `VITE_PORT` for port (defaults to `5173`)
+- `vite.config.ts` uses `VITE_BASE` env var for base path (defaults to `/game_kastle_dev/`), and `VITE_PORT` for port (main dev runs on `5174`)

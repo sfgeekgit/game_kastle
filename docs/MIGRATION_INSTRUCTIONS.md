@@ -24,6 +24,7 @@ Fix any found before copying forward (they'll propagate to the new game).
 - `frontend/public/manifest.json` - Check "name" and "short_name"
 - `frontend/index.html` - Check title
 - `frontend/dist/` - Check same files (rebuilt versions)
+- `CLAUDE.md` - Tracked in git, so it forks along with the code. Contains the source repo's dev DB password, dev systemd service names, and dev ports. Update **before** agents read it — a wrong DB password here leads to backend startup failures that look mysterious until you trace them back.
 
 ---
 
