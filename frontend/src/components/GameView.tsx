@@ -4,6 +4,7 @@ import type { AreaState, Direction, Entity, MapDef, MoveResult } from '@game_kas
 import { api } from '../api.js';
 import { DPad } from './DPad.js';
 import { DialogueWindow } from './DialogueWindow.js';
+import { OverworldSidebar } from './OverworldSidebar.js'; // room layout: shared/src/overworldLayout.ts
 
 interface GameViewProps {
   mode: 'frontend' | 'backend';
@@ -68,6 +69,18 @@ function useTileSize(): number {
     return () => window.removeEventListener('resize', onResize);
   }, []);
   return tileSize;
+}
+
+const WIDE_SCREEN_MIN_PX = 1100;
+
+function useIsWideScreen(): boolean {
+  const [wide, setWide] = useState(() => window.innerWidth >= WIDE_SCREEN_MIN_PX);
+  useEffect(() => {
+    const onResize = () => setWide(window.innerWidth >= WIDE_SCREEN_MIN_PX);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  return wide;
 }
 
 const MAX_CLICK_DISTANCE = 3;
@@ -366,6 +379,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
   }, [mode, areaId, transitioning]);
 
   const tileSize = useTileSize();
+  const isWideScreen = useIsWideScreen();
   const facingOffset = useMemo(() => getFacingOffset(tileSize), [tileSize]);
 
   if (loading) return <div className="game-loading">Loading area...</div>;
@@ -526,6 +540,8 @@ export function GameView({ mode, onExit }: GameViewProps) {
 	  img={getNpcImageUrl(dialogueNpc)}
         />
       )}
+
+      {isWideScreen && <OverworldSidebar currentMapId={areaState.mapId} />}
     </div>
   );
 }

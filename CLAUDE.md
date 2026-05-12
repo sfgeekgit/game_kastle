@@ -70,9 +70,4 @@ VITE_BASE=/game_kastle_wt/ VITE_PORT=5178 npm run dev -w frontend
 All SQL must go through `backend/src/db/query.ts`. Direct mysql2 imports outside `backend/src/db/` are blocked by ESLint.
 
 ### Key files
-- Map definitions: `shared/src/maps/*.ts`
-- NPC dialogue: `text_content/npcs/*.yaml`
-- Area manager: `backend/src/area/manager.ts`
-- Movement logic: `shared/src/movement.ts`
-- Frontend game: `frontend/src/components/GameView.tsx`
-- `vite.config.ts` uses `VITE_BASE` env var for base path (defaults to `/game_kastle_dev/`), and `VITE_PORT` for port (main dev runs on `5174`)
+See `docs/codebase-map.md`.

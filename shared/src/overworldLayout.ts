@@ -12,6 +12,7 @@
 
 export interface OverworldRoom {
   mapId: string;
+  floor: number;
   x: number;
   y: number;
   w: number;
@@ -20,17 +21,18 @@ export interface OverworldRoom {
 }
 
 export const OVERWORLD_LAYOUT: OverworldRoom[] = [
-  { mapId: 'graveyard',        x: 230, y:   0, w: 200, h: 150, label: 'Graveyard' },
-  { mapId: 'tavern',           x: 460, y:   0, w: 200, h: 150, label: 'The Rusty Flagon' },
-  { mapId: 'castle_gates',     x: 690, y:   0, w: 200, h: 150, label: 'Castle Gates' },
-  { mapId: 'temple',           x: 1150, y:  0, w: 200, h: 150, label: 'Temple' },
-  { mapId: 'herbalist_garden', x:   0, y: 180, w: 200, h: 150, label: "Herbalist's Garden" },
-  { mapId: 'forest_path',      x: 230, y: 180, w: 200, h: 150, label: 'Forest Path' },
-  { mapId: 'town_square',      x: 460, y: 180, w: 200, h: 150, label: 'Town Square' },
-  { mapId: 'marketplace',      x: 690, y: 180, w: 200, h: 150, label: 'Marketplace' },
-  { mapId: 'docks',            x: 920, y: 180, w: 200, h: 150, label: 'Docks' },
-  { mapId: 'dungeon_entrance', x: 1150, y: 180, w: 200, h: 150, label: 'Dungeon Entrance' },
+  { mapId: 'castle_gates',     floor: 1, x: 490, y:   0, w: 200, h: 150, label: 'Castle Gates' },
+  { mapId: 'temple',           floor: 1, x: 950, y:  0, w: 100, h: 150, label: 'Temple' },
+  { mapId: 'herbalist_garden', floor: 1, x: 30, y: 100, w: 400, h: 190, label: "Herbalist's Garden" },
+  { mapId: 'marketplace',      floor: 1, x: 490, y: 180, w: 200, h: 150, label: 'Marketplace' },
+  { mapId: 'docks',            floor: 1, x: 720, y: 180, w: 200, h: 150, label: 'Docks' },
+  { mapId: 'dungeon_entrance', floor: 1, x: 950, y: 180, w: 100, h: 150, label: 'Dungeon Entrance' },
+
+  { mapId: 'graveyard',        floor: 2, x: 30, y:   0, w: 200, h: 150, label: 'Graveyard' },
+  { mapId: 'tavern',           floor: 2, x: 260, y:   0, w: 200, h: 150, label: 'The Rusty Flagon' },
+  { mapId: 'forest_path',      floor: 2, x: 30, y: 180, w: 200, h: 150, label: 'Forest Path' },
+  { mapId: 'town_square',      floor: 2, x: 260, y: 180, w: 200, h: 150, label: 'Town Square' },
 ];
 
-export const OVERWORLD_CANVAS_WIDTH = 1350;
+export const OVERWORLD_CANVAS_WIDTH = 1100;
 export const OVERWORLD_CANVAS_HEIGHT = 330;
