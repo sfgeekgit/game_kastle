@@ -1,13 +1,21 @@
 /**
- * Overworld layout — manual, display-only.
+ * Overworld layout — controls what players see on the world map.
  *
- * Each entry positions a map on a 2D canvas (pixel coords, north = top).
- * Rooms do NOT need to be uniform; vary `w`/`h` for wide-over-narrow or
- * tall-beside-short layouts. This data is consumed only by the overworld
- * page — game logic still uses the exit tiles inside each map.
+ * Each entry positions a room on a 2D canvas (pixel coords, north = top).
+ * `floor` groups rooms into separate map views (1 = ground floor, 2 = upper, etc.).
+ * Vary `w`/`h` freely — rooms do not need to be uniform size.
  *
- * If you add a new map, add it here and the overworld page will pick it up.
- * If a registered map is missing from this list, the page will skip it.
+ * TO ADD A ROOM TO THE WORLD MAP:
+ *   Add an entry here with a mapId matching the room's `id` field and an
+ *   area_defs DB row. Pick x/y/w/h/floor to place it visually.
+ *   A room not listed here is invisible on the overworld (but can still be
+ *   reached if another room has an exitTarget pointing to it).
+ *
+ * TO REMOVE A ROOM FROM THE WORLD MAP:
+ *   Delete its entry here. The room still exists in the registry and DB;
+ *   players just won't see it on the map.
+ *
+ * See backend/src/area/registry.ts for the full add/remove room checklist.
  */
 
 export interface OverworldRoom {
