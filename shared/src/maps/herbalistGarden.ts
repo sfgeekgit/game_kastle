@@ -54,7 +54,7 @@ export const herbalistGarden: MapDef = {
     [g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g, g],
   ],
   npcs: [
-    { id: 'herbalist', name: 'Sylva the Herbalist', x: 4, y: 4, dialogueFile: 'herbalist' },
-    { id: 'hedge_wizard', name: 'Bramwell the Wizard', x: 4, y: 10, dialogueFile: 'hedge_wizard' },
+    { id: 'herbalist', name: 'victor', x: 4, y: 4, dialogueFile: 'herbalist' },
+    { id: 'hedge_wizard', name: 'bena', x: 4, y: 10, dialogueFile: 'hedge_wizard' },
   ] satisfies NpcDef[],
 };

@@ -1,5 +1,5 @@
 npc_id: drunk_merchant
-name: "Tobias the Merchant"
+name: "jonas"
 
 fallbacks:
   - "*hiccup* What? Who's there?"

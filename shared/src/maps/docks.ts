@@ -54,8 +54,8 @@ export const docks: MapDef = {
     [W, W, W, W, p, W, W, W, W, W, p, W, W, W, W, p, W, W, W, W],
   ],
   npcs: [
-    { id: 'dockmaster', name: 'Henrik the Dockmaster', x: 10, y: 6, dialogueFile: 'dockmaster' },
-    { id: 'sailor', name: 'Harwick the Sailor', x: 16, y: 6, dialogueFile: 'sailor' },
-    { id: 'fisherman', name: 'Old Thomas', x: 4, y: 9, dialogueFile: 'fisherman' },
+    { id: 'dockmaster', name: 'nico', x: 10, y: 6, dialogueFile: 'dockmaster' },
+    { id: 'sailor', name: 'london', x: 16, y: 6, dialogueFile: 'sailor' },
+    { id: 'fisherman', name: 'david', x: 4, y: 9, dialogueFile: 'fisherman' },
   ] satisfies NpcDef[],
 };

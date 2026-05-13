@@ -1,5 +1,5 @@
 npc_id: adventurer_ghost
-name: "Ghost of Sir Gareth"
+name: "phil"
 
 fallbacks:
   - "The darkness... it takes everything..."

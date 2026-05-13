@@ -1,5 +1,5 @@
 npc_id: guard
-name: "Roland the Gate Guard"
+name: "mikhail"
 
 fallbacks:
   - "State your business or move along."

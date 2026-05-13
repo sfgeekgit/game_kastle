@@ -1,5 +1,5 @@
 npc_id: priest
-name: "Father Aldwyn"
+name: "ryan"
 
 fallbacks:
   - "Speak with reverence in this sacred place."

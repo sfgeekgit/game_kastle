@@ -1,5 +1,5 @@
 npc_id: pilgrim
-name: "Brother Oswald"
+name: "michele"
 
 fallbacks:
   - "I am weary, friend. Please be gentle."

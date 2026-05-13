@@ -1,5 +1,5 @@
 npc_id: herbalist
-name: "Sylva the Herbalist"
+name: "victor"
 
 fallbacks:
   - "I tend to plants and wounds, not idle talk."

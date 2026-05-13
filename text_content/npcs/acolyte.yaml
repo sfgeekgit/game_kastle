@@ -1,5 +1,5 @@
 npc_id: acolyte
-name: "Petra the Acolyte"
+name: "mark"
 
 fallbacks:
   - "I'm still learning. Father Aldwyn knows more."

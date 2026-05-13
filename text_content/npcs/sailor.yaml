@@ -1,5 +1,5 @@
 npc_id: sailor
-name: "Harwick the Sailor"
+name: "london"
 
 fallbacks:
   - "I sail ships, friend, not books."
