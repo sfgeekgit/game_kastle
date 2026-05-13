@@ -5,7 +5,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
 import { applyMove } from '@game_kastle/shared';
-import type { Direction, Entity, MapDef } from '@game_kastle/shared';
+import type { Direction, MapDef } from '@game_kastle/shared';
 import { getOrCreateRoom, getRoomDef, enrichWithImages, findAreaId, findMapIdForAreaId } from '../area/manager.js';
 import { checkpointPlayer, getPlayerById } from '../db/helpers.js';
 import { withAreaLock, readAreaState, findPlayerEntity, getAllAreaSnapshots } from '../area/store.js';
@@ -86,17 +86,10 @@ router.post('/join', async (req: Request, res: Response) => {
     );
     const ghostEntity = allEntities.find((e) => e.id === String(userId) && e.type === 'player') ?? null;
 
-    // Checkpoint idle players before evicting them.
-    await Promise.all(
-      idlePlayers.map((e) => checkpointPlayer(Number(e.id), areaId, e.x, e.y, e.lastMoveAt ?? now)),
-    );
-
-    // Checkpoint ghost (exact coords) on initial join; checkpoint new room on transition.
-    if (ghostEntity && !isRoomTransition) {
-      await checkpointPlayer(userId, areaId, ghostEntity.x, ghostEntity.y, ghostEntity.lastMoveAt ?? now);
-    } else if (isRoomTransition) {
-      await checkpointPlayer(userId, areaId, room.spawnX, room.spawnY, now);
-    }
+    const checkpoints = idlePlayers.map((e) => checkpointPlayer(Number(e.id), areaId, e.x, e.y, e.lastMoveAt ?? now));
+    if (ghostEntity && !isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, ghostEntity.x, ghostEntity.y, ghostEntity.lastMoveAt ?? now));
+    else if (isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, room.spawnX, room.spawnY, now));
+    await Promise.all(checkpoints);
 
     // Determine spawn position.
     const spawnX = (ghostEntity && !isRoomTransition) ? ghostEntity.x : (dbSpawnOverride?.x ?? room.spawnX);
@@ -276,7 +269,7 @@ router.get('/npc/:npcId/dialogue', async (req: Request, res: Response) => {
       withAreaLock(areaId, (state) => {
         const entity = state.entities.find((e) => e.id === String(userId) && e.type === 'player');
         if (entity) entity.lastMoveAt = Date.now();
-      }).catch(() => {});
+      }).catch((err) => console.error('NPC activity update failed:', err));
     }
 
     const npcPath = join(NPC_DIR, `${npcId}.yaml`);
