@@ -16,7 +16,8 @@ export interface PlayerRow extends RowDataPacket {
   last_area_id: number | null;
   last_x: number | null;
   last_y: number | null;
-  updated_at: Date;
+  last_active: Date | null;
+  reg_date: Date;
 }
 
 export interface NpcRow extends RowDataPacket {
@@ -85,15 +86,16 @@ export async function updatePlayer(userId: number, points: number, level: number
   ]);
 }
 
-export async function updatePlayerPosition(
+export async function checkpointPlayer(
   userId: number,
   areaId: number,
   x: number,
   y: number,
+  lastMoveAt: number,
 ): Promise<void> {
   await query<ResultSetHeader>(
-    'UPDATE players SET last_area_id = ?, last_x = ?, last_y = ? WHERE user_id = ?',
-    [areaId, x, y, userId],
+    'UPDATE players SET last_area_id = ?, last_x = ?, last_y = ?, last_active = ? WHERE user_id = ?',
+    [areaId, x, y, new Date(lastMoveAt), userId],
   );
 }
 

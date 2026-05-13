@@ -7,7 +7,7 @@ import yaml from 'js-yaml';
 import { applyMove } from '@game_kastle/shared';
 import type { Direction, Entity, MapDef } from '@game_kastle/shared';
 import { getOrCreateRoom, getRoomDef, enrichWithImages, findAreaId, findMapIdForAreaId } from '../area/manager.js';
-import { updatePlayerPosition, getPlayerById } from '../db/helpers.js';
+import { checkpointPlayer, getPlayerById } from '../db/helpers.js';
 import { withAreaLock, readAreaState, findPlayerEntity, getAllAreaSnapshots } from '../area/store.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -35,6 +35,8 @@ router.get('/map', async (req: Request, res: Response) => {
   }
 });
 
+const IDLE_TIMEOUT_MS = 15 * 60 * 1000;
+
 /**
  * POST /api/area/join
  * Join a persistent area instance.
@@ -48,18 +50,17 @@ router.post('/join', async (req: Request, res: Response) => {
       return;
     }
 
-    // If no mapId provided, this is the initial "Enter Castle" — restore saved position.
-    // Explicit mapId means a transition via exit tile — always use that map's spawn.
+    const isRoomTransition = !!req.body.mapId;
     let mapId = (req.body.mapId as string) || 'town_square';
-    let spawnOverride: { x: number; y: number } | null = null;
+    let dbSpawnOverride: { x: number; y: number } | null = null;
 
-    if (!req.body.mapId) {
+    if (!isRoomTransition) {
       const playerRecord = await getPlayerById(userId);
       if (playerRecord?.last_area_id != null && playerRecord.last_x != null && playerRecord.last_y != null) {
         const savedMapId = await findMapIdForAreaId(playerRecord.last_area_id);
         if (savedMapId) {
           mapId = savedMapId;
-          spawnOverride = { x: playerRecord.last_x, y: playerRecord.last_y };
+          dbSpawnOverride = { x: playerRecord.last_x, y: playerRecord.last_y };
         }
       }
     }
@@ -73,18 +74,43 @@ router.post('/join', async (req: Request, res: Response) => {
     }
 
     const areaId = await getOrCreateRoom(mapId);
+    const now = Date.now();
 
+    // Read state before lock to find idle players and any ghost entity for this user.
+    const currentState = readAreaState(areaId);
+    const allEntities = currentState?.entities ?? [];
+
+    const idlePlayers = allEntities.filter(
+      (e) => e.type === 'player' && e.id !== String(userId) &&
+              (!e.lastMoveAt || e.lastMoveAt < now - IDLE_TIMEOUT_MS),
+    );
+    const ghostEntity = allEntities.find((e) => e.id === String(userId) && e.type === 'player') ?? null;
+
+    // Checkpoint idle players before evicting them.
+    await Promise.all(
+      idlePlayers.map((e) => checkpointPlayer(Number(e.id), areaId, e.x, e.y, e.lastMoveAt ?? now)),
+    );
+
+    // Checkpoint ghost (exact coords) on initial join; checkpoint new room on transition.
+    if (ghostEntity && !isRoomTransition) {
+      await checkpointPlayer(userId, areaId, ghostEntity.x, ghostEntity.y, ghostEntity.lastMoveAt ?? now);
+    } else if (isRoomTransition) {
+      await checkpointPlayer(userId, areaId, room.spawnX, room.spawnY, now);
+    }
+
+    // Determine spawn position.
+    const spawnX = (ghostEntity && !isRoomTransition) ? ghostEntity.x : (dbSpawnOverride?.x ?? room.spawnX);
+    const spawnY = (ghostEntity && !isRoomTransition) ? ghostEntity.y : (dbSpawnOverride?.y ?? room.spawnY);
+
+    const idleIds = new Set(idlePlayers.map((e) => e.id));
     await withAreaLock(areaId, (state) => {
+      state.entities = state.entities.filter((e) => !(e.type === 'player' && idleIds.has(e.id)));
       const existing = state.entities.find((e) => e.id === String(userId) && e.type === 'player');
-      if (!existing) {
-        const playerEntity: Entity = {
-          id: String(userId),
-          type: 'player',
-          x: spawnOverride?.x ?? room.spawnX,
-          y: spawnOverride?.y ?? room.spawnY,
-          facing: 'south',
-        };
-        state.entities.push(playerEntity);
+      if (existing) {
+        existing.lastMoveAt = now;
+        if (isRoomTransition) { existing.x = spawnX; existing.y = spawnY; existing.facing = 'south'; }
+      } else {
+        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: 'south', lastMoveAt: now });
       }
     });
 
@@ -139,14 +165,9 @@ router.post('/move', async (req: Request, res: Response) => {
         entity.x = moveResult.newX;
         entity.y = moveResult.newY;
         entity.facing = moveResult.newFacing;
+        entity.lastMoveAt = Date.now();
       }
     });
-
-    if (moveResult.success) {
-      updatePlayerPosition(userId, areaId, moveResult.newX, moveResult.newY).catch((err) =>
-        console.error('Failed to persist player position:', err),
-      );
-    }
 
     if (moveResult.exitedArea) {
       await withAreaLock(areaId, (state) => {
@@ -226,7 +247,7 @@ router.post('/exit', async (req: Request, res: Response) => {
     }
 
     const areaId = await findAreaId(mapId);
-    if (areaId) await updatePlayerPosition(userId, areaId, x, y);
+    if (areaId) await checkpointPlayer(userId, areaId, x, y, Date.now());
 
     res.json({ success: true });
   } catch (err) {
@@ -246,6 +267,16 @@ router.get('/npc/:npcId/dialogue', async (req: Request, res: Response) => {
     if (!/^[a-zA-Z0-9_-]+$/.test(npcId)) {
       res.status(400).json({ error: 'Invalid NPC ID' });
       return;
+    }
+
+    // Count NPC interaction as player activity (best-effort, non-blocking).
+    const userId = req.session?.userId;
+    const areaId = req.session?.currentAreaId;
+    if (userId && areaId) {
+      withAreaLock(areaId, (state) => {
+        const entity = state.entities.find((e) => e.id === String(userId) && e.type === 'player');
+        if (entity) entity.lastMoveAt = Date.now();
+      }).catch(() => {});
     }
 
     const npcPath = join(NPC_DIR, `${npcId}.yaml`);

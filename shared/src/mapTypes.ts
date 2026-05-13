@@ -21,6 +21,7 @@ export interface Entity {
   dialogueFile?: string; // YAML filename for NPC dialogue
   image?: string; // NPC image filename (e.g. 'NPC01.png'), served from /npcs/
   passable?: boolean; // if true, other entities can walk through this one
+  lastMoveAt?: number; // unix ms timestamp of last player action (in-memory only, not persisted)
 }
 
 export interface NpcDef {

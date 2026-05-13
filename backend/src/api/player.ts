@@ -24,7 +24,7 @@ router.get('/', async (req: Request, res: Response) => {
       displayName: player.display_name,
       points: Number(player.points),
       level: player.level,
-      updatedAt: player.updated_at,
+      lastActive: player.last_active,
     });
   } catch (err) {
     console.error('Get player error:', err);

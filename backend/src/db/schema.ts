@@ -19,9 +19,12 @@ export async function initializeDatabase(): Promise<void> {
       last_area_id INT NULL,
       last_x INT NULL,
       last_y INT NULL,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      last_active DATETIME NULL,
+      reg_date DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  await query(`ALTER TABLE players ADD COLUMN IF NOT EXISTS last_active DATETIME NULL`);
 
   await query(`
     CREATE TABLE IF NOT EXISTS area_defs (
