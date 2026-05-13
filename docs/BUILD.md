@@ -6,7 +6,7 @@
 All development and testing happens on the dev servers below. Claude reminds the user
 to deploy when a feature is complete — it does not deploy itself.
 
-Test everything at: **https://documentbrain.com/game_kastle_dev/**
+Test everything at: **https://hauntedhostacov.org/game_kastle_dev/**
 
 ### Start the frontend dev server (port 5173)
 ```bash

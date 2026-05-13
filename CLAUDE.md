@@ -4,8 +4,9 @@
 Medieval fantasy multiplayer web game (Ultima 4 inspired).
 - **Stack**: TypeScript monorepo — `shared/` + `backend/` (Express) + `frontend/` (React/Vite)
 - **Two main gameplay sections**: "area explore" and "combat"
-- **Prod URL**: https://documentbrain.com/game_kastle/
-- **Dev URL**: https://documentbrain.com/game_kastle_dev/
+- **Prod URL**: https://hauntedhostacov.org/
+- **Preview URL**: https://dist.hauntedhostacov.org/ (serves `frontend/dist/` before promoting to stable)
+- **Dev URL**: https://hauntedhostacov.org/game_kastle_dev/
 
 ## Dev Workflow
 
@@ -26,7 +27,7 @@ sudo systemctl restart  game_kastle_dev_vite     # frontend
 
 If you ever need to run the backend manually (debugging a startup crash):
 ```bash
-SESSION_SECRET="K6iBttoa/a1YohzKKhoQKvYM7KSS3o57xKRK12gYHy9uP1UeG7KJ15531gl61nqr" DB_PASSWORD="5h7FhUQaUiDOZckn+p3KpV0EAu9AHqMcxqRZje28qu4=" CORS_ORIGIN="https://documentbrain.com" PORT=3016 npx tsx watch backend/src/server.ts
+SESSION_SECRET="<from systemd unit>" DB_PASSWORD="<from systemd unit>" CORS_ORIGIN="https://hauntedhostacov.org" PORT=3016 npx tsx watch backend/src/server.ts
 ```
 
 Backend changes hot-reload via `tsx watch`. Frontend changes appear instantly via Vite HMR.
@@ -44,13 +45,13 @@ Three permanent slots for parallel agent work. Caddy is already configured. Crea
 
 | Slot | URL | Path | Vite port | Express port |
 |------|-----|------|-----------|--------------|
-| wt1 | https://documentbrain.com/game_kastle_wt/  | /home/game_kastle_wt  | 5178 | 3013 |
-| wt2 | https://documentbrain.com/game_kastle_wt2/ | /home/game_kastle_wt2 | 5176 | 3014 |
-| wt3 | https://documentbrain.com/game_kastle_wt3/ | /home/game_kastle_wt3 | 5177 | 3015 |
+| wt1 | https://hauntedhostacov.org/game_kastle_wt/  | /home/game_kastle_wt  | 5178 | 3013 |
+| wt2 | https://hauntedhostacov.org/game_kastle_wt2/ | /home/game_kastle_wt2 | 5176 | 3014 |
+| wt3 | https://hauntedhostacov.org/game_kastle_wt3/ | /home/game_kastle_wt3 | 5177 | 3015 |
 
 ```bash
 # Backend (replace PORT with slot's Express port, run from worktree root):
-SESSION_SECRET="K6iBttoa/a1YohzKKhoQKvYM7KSS3o57xKRK12gYHy9uP1UeG7KJ15531gl61nqr" DB_PASSWORD="5h7FhUQaUiDOZckn+p3KpV0EAu9AHqMcxqRZje28qu4=" CORS_ORIGIN="https://documentbrain.com" PORT=3013 npx tsx watch backend/src/server.ts
+SESSION_SECRET="<from systemd unit>" DB_PASSWORD="<from systemd unit>" CORS_ORIGIN="https://hauntedhostacov.org" PORT=3013 npx tsx watch backend/src/server.ts
 
 # Frontend (replace VITE_BASE and VITE_PORT with slot's values, run from worktree root):
 VITE_BASE=/game_kastle_wt/ VITE_PORT=5178 npm run dev -w frontend

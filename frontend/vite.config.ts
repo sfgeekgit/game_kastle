@@ -6,7 +6,7 @@ export default defineConfig(({ command }) => ({
   server: {
     host: '127.0.0.1',
     port: parseInt(process.env.VITE_PORT || '5173'),
-    allowedHosts: ['documentbrain.com', 'hauntedhostacov.org'],
+    allowedHosts: ['documentbrain.com', 'hauntedhostacov.org', 'www.hauntedhostacov.org'],
     proxy: {
       '/api': {
         target: `http://127.0.0.1:${process.env.BACKEND_PORT || '3006'}`,
