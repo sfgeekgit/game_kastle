@@ -1,4 +1,4 @@
-export type TileType = 'grass' | 'path' | 'water' | 'wall' | 'exit';
+export type TileType = 'floor' | 'wall' | 'exit';
 
 export type Direction = 'north' | 'south' | 'east' | 'west';
 
@@ -6,6 +6,7 @@ export type EntityType = 'player' | 'npc';
 
 export interface Tile {
   type: TileType;
+  variant?: string;         // visual only — e.g. 'grass', 'path', 'water', 'stone'
   /** For exit tiles: where this exit leads. Map ID or 'welcome' to return to title. */
   exitTarget?: string;
 }
@@ -19,6 +20,7 @@ export interface Entity {
   name?: string; // display name (NPCs)
   dialogueFile?: string; // YAML filename for NPC dialogue
   image?: string; // NPC image filename (e.g. 'NPC01.png'), served from /npcs/
+  passable?: boolean; // if true, other entities can walk through this one
 }
 
 export interface NpcDef {

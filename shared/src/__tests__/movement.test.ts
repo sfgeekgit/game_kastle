@@ -7,7 +7,7 @@ function makeState(tiles: string[][]): AreaState {
     mapId: 'test',
     width: tiles[0].length,
     height: tiles.length,
-    tiles: tiles.map((row) => row.map((t) => ({ type: t as 'grass' | 'wall' | 'water' | 'path' | 'exit' }))),
+    tiles: tiles.map((row) => row.map((t) => ({ type: t as 'floor' | 'wall' | 'exit' }))),
     entities: [],
   };
 }
@@ -17,17 +17,17 @@ function makePlayer(x: number, y: number): Entity {
 }
 
 const simpleMap = makeState([
-  ['grass', 'grass', 'grass'],
-  ['grass', 'wall',  'grass'],
-  ['grass', 'grass', 'exit'],
+  ['floor', 'floor', 'floor'],
+  ['floor', 'wall',  'floor'],
+  ['floor', 'floor', 'exit'],
 ]);
 
 describe('isTilePassable', () => {
-  it('grass is passable', () => expect(isTilePassable({ type: 'grass' })).toBe(true));
-  it('path is passable', () => expect(isTilePassable({ type: 'path' })).toBe(true));
+  it('floor is passable', () => expect(isTilePassable({ type: 'floor' })).toBe(true));
+  it('floor with variant is passable', () => expect(isTilePassable({ type: 'floor', variant: 'path' })).toBe(true));
   it('exit is passable', () => expect(isTilePassable({ type: 'exit' })).toBe(true));
   it('wall is impassable', () => expect(isTilePassable({ type: 'wall' })).toBe(false));
-  it('water is impassable', () => expect(isTilePassable({ type: 'water' })).toBe(false));
+  it('wall with water variant is impassable', () => expect(isTilePassable({ type: 'wall', variant: 'water' })).toBe(false));
 });
 
 describe('applyMove — success cases', () => {
@@ -108,7 +108,7 @@ describe('applyMove — blocked cases', () => {
     expect(result.reason).toBe('out_of_bounds');
   });
 
-  it('blocked by another entity', () => {
+  it('blocked by non-passable NPC', () => {
     const stateWithNpc = {
       ...simpleMap,
       entities: [
@@ -121,6 +121,30 @@ describe('applyMove — blocked cases', () => {
     expect(result.newX).toBe(0);
     expect(result.newY).toBe(0);
     expect(result.newFacing).toBe('east');
+  });
+
+  it('not blocked by passable NPC', () => {
+    const stateWithPassableNpc = {
+      ...simpleMap,
+      entities: [
+        { id: 'npc1', type: 'npc' as const, x: 1, y: 0, passable: true },
+      ],
+    };
+    const result = applyMove(stateWithPassableNpc, makePlayer(0, 0), 'east');
+    expect(result.success).toBe(true);
+    expect(result.newX).toBe(1);
+  });
+
+  it('not blocked by another player', () => {
+    const stateWithPlayer = {
+      ...simpleMap,
+      entities: [
+        { id: 'p2', type: 'player' as const, x: 1, y: 0 },
+      ],
+    };
+    const result = applyMove(stateWithPlayer, makePlayer(0, 0), 'east');
+    expect(result.success).toBe(true);
+    expect(result.newX).toBe(1);
   });
 
   it('does not collide with self', () => {

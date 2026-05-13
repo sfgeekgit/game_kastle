@@ -1,6 +1,6 @@
 import type { MapDef, NpcDef } from '../mapTypes.js';
 
-const p = { type: 'path' as const };
+const p = { type: 'floor' as const, variant: 'path' };
 const w = { type: 'wall' as const };
 // Exit
 const eN = { type: 'exit' as const, exitTarget: 'temple' };

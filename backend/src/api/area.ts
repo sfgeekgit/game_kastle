@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
 import { applyMove } from '@game_kastle/shared';
 import type { Direction, Entity, MapDef } from '@game_kastle/shared';
-import { getOrCreateRoom, getRoomDef, enrichWithImages, findAreaId } from '../area/manager.js';
-import { updatePlayerPosition } from '../db/helpers.js';
+import { getOrCreateRoom, getRoomDef, enrichWithImages, findAreaId, findMapIdForAreaId } from '../area/manager.js';
+import { updatePlayerPosition, getPlayerById } from '../db/helpers.js';
 import { withAreaLock, readAreaState, findPlayerEntity, getAllAreaSnapshots } from '../area/store.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -48,7 +48,22 @@ router.post('/join', async (req: Request, res: Response) => {
       return;
     }
 
-    const mapId = (req.body.mapId as string) || 'town_square';
+    // If no mapId provided, this is the initial "Enter Castle" — restore saved position.
+    // Explicit mapId means a transition via exit tile — always use that map's spawn.
+    let mapId = (req.body.mapId as string) || 'town_square';
+    let spawnOverride: { x: number; y: number } | null = null;
+
+    if (!req.body.mapId) {
+      const playerRecord = await getPlayerById(userId);
+      if (playerRecord?.last_area_id != null && playerRecord.last_x != null && playerRecord.last_y != null) {
+        const savedMapId = await findMapIdForAreaId(playerRecord.last_area_id);
+        if (savedMapId) {
+          mapId = savedMapId;
+          spawnOverride = { x: playerRecord.last_x, y: playerRecord.last_y };
+        }
+      }
+    }
+
     let room: MapDef;
     try {
       room = getRoomDef(mapId);
@@ -65,8 +80,8 @@ router.post('/join', async (req: Request, res: Response) => {
         const playerEntity: Entity = {
           id: String(userId),
           type: 'player',
-          x: room.spawnX,
-          y: room.spawnY,
+          x: spawnOverride?.x ?? room.spawnX,
+          y: spawnOverride?.y ?? room.spawnY,
           facing: 'south',
         };
         state.entities.push(playerEntity);

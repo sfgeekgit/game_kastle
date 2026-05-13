@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "declaration": true,
     "sourceMap": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "noEmitOnError": true
   }
 }

@@ -1,10 +1,10 @@
 import type { MapDef, NpcDef } from '../mapTypes.js';
 
 // Shorthand builders
-const g = { type: 'grass' as const };
-const p = { type: 'path' as const };
+const g = { type: 'floor' as const, variant: 'grass' };
+const p = { type: 'floor' as const, variant: 'path' };
 const w = { type: 'wall' as const };
-const W = { type: 'water' as const };
+const W = { type: 'wall' as const, variant: 'water' };
 // Exits: south returns to welcome; north/east/west lead to new maps
 const eS = { type: 'exit' as const, exitTarget: 'welcome' };
 const eN = { type: 'exit' as const, exitTarget: 'tavern' };

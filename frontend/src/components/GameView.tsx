@@ -40,8 +40,10 @@ function playStepSound() {
   }
 }
 
+const FLOOR_COLOR = '#4a7c3f';
 const TILE_COLORS: Record<string, string> = {
-  grass: '#4a7c3f',
+  grass: FLOOR_COLOR,
+  floor: FLOOR_COLOR,
   path: '#c8a96e',
   water: '#2a6fa8',
   wall: '#6b6b6b',
@@ -116,14 +118,14 @@ function getVisibleTiles(
   state: AreaState,
   camX: number,
   camY: number,
-): { type: string; col: number; row: number }[] {
-  const tiles: { type: string; col: number; row: number }[] = [];
+): { type: string; variant?: string; col: number; row: number }[] {
+  const tiles: { type: string; variant?: string; col: number; row: number }[] = [];
   for (let row = 0; row < VIEWPORT_H; row++) {
     for (let col = 0; col < VIEWPORT_W; col++) {
       const mapRow = camY + row;
       const mapCol = camX + col;
       const tile = state.tiles[mapRow]?.[mapCol];
-      tiles.push({ type: tile?.type ?? 'wall', col, row });
+      tiles.push({ type: tile?.type ?? 'wall', variant: tile?.variant, col, row });
     }
   }
   return tiles;
@@ -199,7 +201,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
           setCurrentMapId(map.id);
           setMapName(map.name);
         } else {
-          const res = await api.post<{ areaId: number; state: AreaState; player: Entity }>('/area/join', { mapId: 'town_square' });
+          const res = await api.post<{ areaId: number; state: AreaState; player: Entity }>('/area/join', {});
           if (cancelled) return;
           setAreaId(res.areaId);
           setAreaState(res.state);
@@ -381,6 +383,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
   const tileSize = useTileSize();
   const isWideScreen = useIsWideScreen();
   const facingOffset = useMemo(() => getFacingOffset(tileSize), [tileSize]);
+  const facingOffsetStacked = useMemo(() => getFacingOffset(Math.round(tileSize * 0.75)), [tileSize]);
 
   if (loading) return <div className="game-loading">Loading area...</div>;
   if (!areaState || !player) return <div className="game-loading">{message || 'Error loading area.'}</div>;
@@ -396,6 +399,19 @@ export function GameView({ mode, onExit }: GameViewProps) {
   const allVisibleEntities = localPlayer
     ? [localPlayer, ...visibleEntities]
     : visibleEntities;
+
+  const stackIndex = new Map<string, number>(); // entity id → position within its tile's stack
+  const stackTotal = new Map<string, number>(); // "x,y" → total entities on that tile
+  for (const e of allVisibleEntities) {
+    const k = `${e.x},${e.y}`;
+    const idx = stackTotal.get(k) ?? 0;
+    stackIndex.set(e.id, idx);
+    stackTotal.set(k, idx + 1);
+  }
+  const stackOf = (id: string, x: number, y: number) => ({
+    index: stackIndex.get(id) ?? 0,
+    total: stackTotal.get(`${x},${y}`) ?? 1,
+  });
 
   const viewportPx = tileSize * VIEWPORT_W;
   const viewportPyH = tileSize * VIEWPORT_H;
@@ -432,14 +448,14 @@ export function GameView({ mode, onExit }: GameViewProps) {
             left: 0,
           }}
         >
-          {visibleTiles.map(({ type, col, row }) => (
+          {visibleTiles.map(({ type, variant, col, row }) => (
             <div
               key={`${col}-${row}`}
-              className={`game-tile game-tile-${type}`}
+              className={`game-tile game-tile-${variant ?? type}`}
               style={{
                 width: tileSize,
                 height: tileSize,
-                backgroundColor: TILE_COLORS[type] ?? '#333',
+                backgroundColor: TILE_COLORS[variant ?? type] ?? '#333',
                 cursor: 'pointer',
                 boxSizing: 'border-box',
                 border: type === 'exit' ? '2px solid #fff700' : undefined,
@@ -451,10 +467,15 @@ export function GameView({ mode, onExit }: GameViewProps) {
 
         {/* Entity layer */}
         {allVisibleEntities.map((entity) => {
-          const viewX = (entity.x - camX) * tileSize;
-          const viewY = (entity.y - camY) * tileSize;
           const isMe = entity.id === player.id || (mode === 'frontend' && entity.id === 'local');
           const isNpc = entity.type === 'npc';
+          const { index, total } = stackOf(entity.id, entity.x, entity.y);
+          const isStacked = total > 1;
+
+          const entitySize = isStacked ? Math.round(tileSize * 0.75) : tileSize;
+          const offsetStep = isStacked ? Math.round(tileSize * 0.12) : 0;
+          const viewX = (entity.x - camX) * tileSize + index * offsetStep;
+          const viewY = (entity.y - camY) * tileSize + index * offsetStep;
 
           const bgColor = isNpc ? '#2d6a4f' : isMe ? '#e63946' : '#457b9d';
           const npcImageUrl = isNpc ? getNpcImageUrl(entity) : null;
@@ -467,15 +488,15 @@ export function GameView({ mode, onExit }: GameViewProps) {
                 position: 'absolute',
                 left: viewX,
                 top: viewY,
-                width: tileSize,
-                height: tileSize,
+                width: entitySize,
+                height: entitySize,
                 backgroundColor: npcImageUrl ? 'transparent' : bgColor,
                 backgroundImage: npcImageUrl ? `url(${npcImageUrl})` : undefined,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 borderRadius: isNpc ? 8 : 4,
                 boxSizing: 'border-box',
-                zIndex: 10,
+                zIndex: isMe ? 12 : 10 + index,
                 cursor: isNpc ? 'pointer' : undefined,
               }}
               onClick={isNpc ? (e) => {
@@ -485,7 +506,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
             >
               {/* Facing indicator (players only) */}
               {!isNpc && entity.facing && (() => {
-                const fo = facingOffset[entity.facing];
+                const fo = (isStacked ? facingOffsetStacked : facingOffset)[entity.facing];
                 return (
                   <div
                     style={{

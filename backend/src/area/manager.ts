@@ -1,11 +1,12 @@
 import { ROOM_REGISTRY } from './registry.js';
 import type { MapDef, AreaState, Entity } from '@game_kastle/shared';
-import { getPersistentArea, createArea, getNpcImages, getAreaDefByMapId } from '../db/helpers.js';
+import { getPersistentArea, createArea, getNpcImages, getAreaDefByMapId, getMapIdByAreaId } from '../db/helpers.js';
 import { isAreaLoaded, loadArea } from './store.js';
 
 // Safe to cache indefinitely — area_defs rows are immutable at runtime.
 const areaDefIdCache = new Map<string, number>();
 const areaIdCache = new Map<string, number>();
+const areaIdToMapId = new Map<number, string>(); // reverse of areaIdCache
 // Serializes concurrent first-joins for the same room to prevent duplicate DB rows.
 const roomCreating = new Map<string, Promise<number>>();
 
@@ -70,6 +71,7 @@ async function _loadRoom(mapId: string): Promise<number> {
   const areaRow = await getPersistentArea(areaDefId);
   const areaId = areaRow ? areaRow.area_id : await createArea(areaDefId);
   areaIdCache.set(mapId, areaId);
+  areaIdToMapId.set(areaId, mapId);
 
   if (!isAreaLoaded(areaId)) {
     const enriched = await enrichWithImages(getRoomDef(mapId));
@@ -77,6 +79,13 @@ async function _loadRoom(mapId: string): Promise<number> {
   }
 
   return areaId;
+}
+
+/** Returns the map_id for an area_id, using the in-memory cache then falling back to a DB join. */
+export async function findMapIdForAreaId(areaId: number): Promise<string | null> {
+  const cached = areaIdToMapId.get(areaId);
+  if (cached !== undefined) return cached;
+  return getMapIdByAreaId(areaId);
 }
 
 /** Returns the area_id for a map, using the cache then falling back to DB. Returns undefined if no area row exists. */

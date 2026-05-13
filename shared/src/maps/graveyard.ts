@@ -1,7 +1,7 @@
 import type { MapDef, NpcDef } from '../mapTypes.js';
 
-const g = { type: 'grass' as const };
-const p = { type: 'path' as const };
+const g = { type: 'floor' as const, variant: 'grass' };
+const p = { type: 'floor' as const, variant: 'path' };
 const w = { type: 'wall' as const };
 // Exit
 const eS = { type: 'exit' as const, exitTarget: 'forest_path' };

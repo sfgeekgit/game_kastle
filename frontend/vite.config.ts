@@ -6,7 +6,7 @@ export default defineConfig(({ command }) => ({
   server: {
     host: '127.0.0.1',
     port: parseInt(process.env.VITE_PORT || '5173'),
-    allowedHosts: ['documentbrain.com'],
+    allowedHosts: ['documentbrain.com', 'hauntedhostacov.org'],
     proxy: {
       '/api': {
         target: `http://127.0.0.1:${process.env.BACKEND_PORT || '3006'}`,
@@ -14,7 +14,7 @@ export default defineConfig(({ command }) => ({
       },
     },
   },
-  base: command === 'serve' ? (process.env.VITE_BASE || '/game_kastle_dev/') : '/game_kastle/',
+  base: command === 'serve' ? (process.env.VITE_BASE || '/game_kastle_dev/') : '/',
   build: {
     outDir: 'dist',
   },

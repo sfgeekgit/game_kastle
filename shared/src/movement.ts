@@ -1,9 +1,7 @@
 import type { AreaState, Direction, Entity, MoveResult, Tile } from './mapTypes.js';
 
-const PASSABLE_TYPES = new Set<string>(['grass', 'path', 'exit']);
-
 export function isTilePassable(tile: Tile): boolean {
-  return PASSABLE_TYPES.has(tile.type);
+  return tile.type !== 'wall';
 }
 
 export function directionDelta(dir: Direction): { dx: number; dy: number } {
@@ -53,11 +51,11 @@ export function applyMove(state: AreaState, player: Entity, direction: Direction
     };
   }
 
-  // Check for entity collision at target tile
-  const occupied = state.entities.some(
-    (e) => e.id !== player.id && e.x === newX && e.y === newY,
+  // Block movement into a tile occupied by a non-passable NPC. Players never block each other.
+  const blockedByNpc = state.entities.some(
+    (e) => e.type === 'npc' && !e.passable && e.x === newX && e.y === newY,
   );
-  if (occupied) {
+  if (blockedByNpc) {
     return {
       success: false,
       reason: 'entity_collision',

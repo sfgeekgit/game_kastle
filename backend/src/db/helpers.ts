@@ -132,6 +132,15 @@ export async function getAreaDefByMapId(mapId: string): Promise<AreaDefRow | nul
   return rows[0] || null;
 }
 
+/** Look up the map_id for a given area instance (area_id → map_id). */
+export async function getMapIdByAreaId(areaId: number): Promise<string | null> {
+  const rows = await query<(RowDataPacket & { map_id: string })[]>(
+    'SELECT ad.map_id FROM areas a JOIN area_defs ad ON a.area_def_id = ad.area_def_id WHERE a.area_id = ?',
+    [areaId],
+  );
+  return rows[0]?.map_id ?? null;
+}
+
 /** Find the single persistent area instance for a given area_def, or null if none exists. */
 export async function getPersistentArea(areaDefId: number): Promise<AreaRow | null> {
   const rows = await query<AreaRow[]>(
