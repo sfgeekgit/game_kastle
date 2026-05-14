@@ -62,7 +62,7 @@ export function Overworld({ onExit }: OverworldProps) {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <div>
-          <h2 style={{ margin: 0 }}>Overworld</h2>
+          <h2 style={{ margin: 0 }}>The Castle</h2>
           <p style={{ margin: '4px 0', color: '#888', fontSize: 13 }}>
             {totalPlayers} player{totalPlayers === 1 ? '' : 's'} online · refreshes every {POLL_MS / 1000}s
           </p>
@@ -93,7 +93,7 @@ export function Overworld({ onExit }: OverworldProps) {
           if (!floorMap.has(room.floor)) floorMap.set(room.floor, []);
           floorMap.get(room.floor)!.push(room);
         }
-        const floors = Array.from(floorMap.entries()).sort(([a], [b]) => a - b);
+        const floors = Array.from(floorMap.entries()).sort(([a], [b]) => b - a);
         const multiFloor = floors.length > 1;
         return floors.map(([floorNum, rooms]) => (
           <div key={floorNum} style={{ marginBottom: 16 }}>

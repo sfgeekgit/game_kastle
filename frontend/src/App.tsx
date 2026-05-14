@@ -96,6 +96,7 @@ function App() {
         {auth?.authenticated && (
           <p className="auth-status">
             Welcome {auth.isRegistered ? 'Registered player' : 'Anonymous player'}
+            {auth.userId && <span style={{ fontSize: '0.65rem', opacity: 0.5 }}> id:{auth.userId}</span>}
 	    <br />
 	    No login needed! Will have auth someday, but for now your cookie is set.
           </p>

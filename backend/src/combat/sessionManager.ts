@@ -201,7 +201,7 @@ let cleanupHandle: ReturnType<typeof setInterval> | null = null;
 
 function ensureCleanupRunning(): void {
   if (!cleanupHandle) {
-    cleanupHandle = setInterval(cleanupSessions, 60_000);
+    cleanupHandle = setInterval(cleanupSessions, 70_000);
   }
 }
 

@@ -5,6 +5,8 @@ node_modules/
 frontend/dist/
 backend/dist/
 
+CLAUDE.md
+
 # Environment and credentials
 .env
 .db_credentials

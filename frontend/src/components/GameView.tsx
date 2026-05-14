@@ -296,7 +296,17 @@ export function GameView({ mode, onExit }: GameViewProps) {
           }
         } catch (err) {
           const errorMsg = err instanceof Error ? err.message : 'Move failed.';
-          setMessage(errorMsg);
+          if (errorMsg === 'Player not in area') {
+            try {
+              const rejoined = await api.post<{ areaId: number; state: AreaState; player: Entity }>('/area/join', {});
+              setAreaId(rejoined.areaId);
+              setAreaState(rejoined.state);
+              setPlayer(rejoined.player);
+              setCurrentMapId(rejoined.state.mapId);
+            } catch { /* ignore */ }
+          } else {
+            setMessage(errorMsg);
+          }
         } finally {
           movingRef.current = false;
         }
@@ -420,6 +430,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
     <div className="game-view">
       <div className="game-hud">
         <span className="game-mode-badge">{mode === 'frontend' ? 'Single-player' : 'Multiplayer'}</span>
+        <span style={{ fontSize: '0.65rem', opacity: 0.5 }}>id:{player.id}</span>
         <span className="game-map-name">{mapName}</span>
         <span className="game-coords">
           ({player.x}, {player.y}) facing {player.facing}

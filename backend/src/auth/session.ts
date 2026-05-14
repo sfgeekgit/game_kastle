@@ -14,7 +14,7 @@ export function createSessionMiddleware() {
   const store = new MySQLStore({ endConnectionOnClose: false }, getPoolForSessionStore() as any);
 
   return session({
-    name: 'game_kastle_session',
+    name: process.env.NODE_ENV === 'production' ? 'game_kastle_session' : 'game_kastle_dev_session',
     secret,
     resave: false,
     saveUninitialized: false,

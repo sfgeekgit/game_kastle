@@ -63,7 +63,7 @@ export function OverworldSidebar({ currentMapId }: OverworldSidebarProps) {
       }}
     >
       <div style={{ fontSize: 11, color: '#888', marginBottom: 6, textAlign: 'center' }}>
-        Overworld
+        The Castle
       </div>
       {(() => {
         const floorMap = new Map<number, typeof OVERWORLD_LAYOUT>();
@@ -71,7 +71,7 @@ export function OverworldSidebar({ currentMapId }: OverworldSidebarProps) {
           if (!floorMap.has(room.floor)) floorMap.set(room.floor, []);
           floorMap.get(room.floor)!.push(room);
         }
-        const floors = Array.from(floorMap.entries()).sort(([a], [b]) => a - b);
+        const floors = Array.from(floorMap.entries()).sort(([a], [b]) => b - a);
         const multiFloor = floors.length > 1;
         return floors.map(([floorNum, rooms]) => (
           <div key={floorNum} style={{ marginBottom: multiFloor ? 6 : 0 }}>
