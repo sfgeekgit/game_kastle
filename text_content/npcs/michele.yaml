@@ -1,0 +1,24 @@
+npc_id: michele
+name: "michele"
+
+fallbacks:
+  - "I'm optimistic about that, even without a laptop."
+  - "Hmm — I have ideas, though my desktop is in Bergamo."
+  - "I'd need more data, but I'm hopeful."
+
+dialogue:
+  name: "I'm Michele. From near Bergamo, Italy. I'm interested in CONSCIOUSNESS and I'm looking for my Lorenzo de' MEDICI."
+  hi: "Ciao! I am wandering the hallway thinking about CONSCIOUSNESS. I don't have a laptop — I use a 2017 desktop at home — so I am forced to think, which is perhaps better. Ask me about CONSCIOUSNESS, RESEARCH, or MEDICI."
+  look: "Radiantly optimistic and genuinely brilliant. You immediately believe they will produce important research, with or without a laptop. One of the warmest people you've encountered in a long time."
+  consciousness: "I believe CONSCIOUSNESS is the central unsolved problem — and that it connects deeply to ALIGNMENT. If we don't know what experience is, we can't be confident about what we're building."
+  research: "I want to do good research. Hopefully useful research. I have ideas. What I lack is a PATRON."
+  medici: "Lorenzo de' Medici funded brilliant people to just... think. No deliverables. No quarterly reviews. I am looking for my Lorenzo. If you are a wealthy philanthropist, I am very available."
+  patron: "Someone willing to fund a researcher to simply think, read, and write — no metrics, no grants. A noble tradition. Tragically rare."
+  laptop: "I don't own a laptop. I use a 2017 desktop and a 2017 phone. This photo is even older. I find this keeps me focused on what matters — ideas, conversations, thinking."
+  optimism: "I am optimistic by disposition. The problems are hard. People are trying to solve them. This castle brings together remarkable people. This seems like progress."
+  poker: "Yes, I play with Mark, Phil, and Pranav. Find Mark in the GYM if you want a game."
+  gym: "The gym is where the poker players congregate. Find Mark there if you want in."
+  alignment: "CONSCIOUSNESS and alignment connect. If a system might be conscious, the stakes of getting alignment wrong are even higher. We should take this seriously."
+  castle: "This castle in the Czech countryside — it's extraordinary. Out here, away from everything, it feels right to think about big things."
+  italy: "Bergamo is a beautiful city. But this CASTLE in the Czech countryside is giving it some competition."
+  bye: "Ciao! I will be here in the hallway, thinking."

@@ -57,9 +57,12 @@ export function DialogueWindow({ npcId, npcName, onClose, img = undefined }: Dia
     logRef.current?.scrollTo(0, logRef.current.scrollHeight);
   }, [entries]);
 
-  // Focus input when loaded
+  // Focus input and pre-fill "hello" when loaded
   useEffect(() => {
-    if (!loading && inputRef.current) inputRef.current.focus();
+    if (!loading && inputRef.current) {
+      setInput('Hello');
+      inputRef.current.focus();
+    }
   }, [loading]);
 
   const handleSubmit = () => {
@@ -216,7 +219,7 @@ export function DialogueWindow({ npcId, npcName, onClose, img = undefined }: Dia
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type a keyword..."
+              placeholder=""
               style={{
                 flex: 1,
                 backgroundColor: '#0f0f23',

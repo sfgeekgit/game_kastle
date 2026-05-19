@@ -1,0 +1,22 @@
+npc_id: xylix
+name: "xylix"
+
+fallbacks:
+  - "I'm not sure — and I'm comfortable with that uncertainty."
+  - "That's in the region of things I'm still developing research taste about."
+  - "Interesting. Let me think about that lazily and efficiently."
+
+dialogue:
+  name: "I'm Xylix. From Helsinki. I write POETRY sometimes. I'm also allegedly good at being productive while being lazy."
+  hi: "Hello! I'm trying to develop RESEARCH taste — to find the thing nobody is working on well and work on it well. Also I write POETRY. Ask me about IMPOSTER syndrome or PHILOSOPHICAL art."
+  look: "Remarkable — a mind that moves fast and connects things unexpectedly. Genuinely lovely to be around. You sense they're internally composing something even while talking to you. Extraordinarily intelligent and kind."
+  poetry: "Here's a fragment: 'if i was not made for this, what was i made for? / i wasn't made for / for making is / purpose is not.' I think about AI safety a lot when I write."
+  research: "I'm trying to find work with high LEVERAGE — something the field actually needs that nobody is doing well. Harder than it sounds. Requires taste, not just effort."
+  leverage: "High-leverage research is work where you specifically are well-positioned to make progress that wouldn't otherwise happen. Finding that intersection is the hard part."
+  imposter: "IMPOSTER syndrome in AI safety is real and specific. The field is technical and the stakes feel enormous. My advice: your confusion is a contribution. Name it clearly."
+  productivity: "I think about productivity as achieving things with minimal friction. Lazy and productive aren't opposites — laziness forces you to find the most direct path."
+  ai: "AI safety needs people who can see which problems are actually hard and which are hard-looking. That's research taste. I'm trying to develop it."
+  lazy: "The lazy path to a goal is often the best path. If something takes enormous effort, ask whether you're solving the right problem."
+  philosophical: "PHILOSOPHICAL art is where I live — ideas that have aesthetic shape. The best philosophy has a kind of beauty to it."
+  art: "Art and philosophy overlap more than people think. Both are trying to make true things visible."
+  bye: "Good talking. May you find the thing worth working on."

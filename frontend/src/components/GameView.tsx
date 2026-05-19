@@ -12,8 +12,8 @@ interface GameViewProps {
 }
 
 // Viewport dimensions in tiles (odd numbers keep player near center)
-const VIEWPORT_W = 11;
-const VIEWPORT_H = 9;
+const VIEWPORT_W = 13;
+const VIEWPORT_H = 11;
 const MAX_TILE_SIZE = 60; // px — capped for mobile tap targets, larger on desktop
 const APP_PADDING = 32; // 1rem padding on each side
 
@@ -42,12 +42,34 @@ function playStepSound() {
 
 const FLOOR_COLOR = '#4a7c3f';
 const TILE_COLORS: Record<string, string> = {
-  grass: FLOOR_COLOR,
-  floor: FLOOR_COLOR,
+  grass:  FLOOR_COLOR,
+  grass1: '#527d3c',
+  grass2: '#3f6b35',
+  grass3: '#56822f',
+  floor:  FLOOR_COLOR,
+  stone:  '#8b6640',
+  stone1: '#7a5a38',
+  stone2: '#9a7450',
+  rug:    '#8b1a1a',
   path: '#c8a96e',
   water: '#2a6fa8',
   wall: '#6b6b6b',
   exit: '#f5c518',
+  chair: '#7a3b1e',
+  table: '#4a2010',
+  stove:    '#1c1c1c',
+  sink:     '#a8bfc5',
+  shelf:    '#7a5c28',
+  desk:     '#5a3a18',
+  lamp:     '#d4a820',
+  bar:      '#2a1206',
+  glass:    '#b0cdd8',
+  espresso: '#1e1e2e',
+  supply:   '#7a5030',
+  couch_n: '#a06030',
+  couch_s: '#a06030',
+  couch_e: '#a06030',
+  couch_w: '#a06030',
 };
 
 function getFacingOffset(tileSize: number): Record<Direction, { top: number; left: number; w: number; h: number }> {
@@ -108,8 +130,12 @@ function getCameraOrigin(
   mapW: number,
   mapH: number,
 ): { camX: number; camY: number } {
-  const camX = clamp(playerX - Math.floor(VIEWPORT_W / 2), 0, Math.max(0, mapW - VIEWPORT_W));
-  const camY = clamp(playerY - Math.floor(VIEWPORT_H / 2), 0, Math.max(0, mapH - VIEWPORT_H));
+  const camX = mapW >= VIEWPORT_W
+    ? clamp(playerX - Math.floor(VIEWPORT_W / 2), 0, mapW - VIEWPORT_W)
+    : -Math.floor((VIEWPORT_W - mapW) / 2);
+  const camY = mapH >= VIEWPORT_H
+    ? clamp(playerY - Math.floor(VIEWPORT_H / 2), 0, mapH - VIEWPORT_H)
+    : -Math.floor((VIEWPORT_H - mapH) / 2);
   return { camX, camY };
 }
 
@@ -201,13 +227,13 @@ export function GameView({ mode, onExit }: GameViewProps) {
           setCurrentMapId(map.id);
           setMapName(map.name);
         } else {
-          const res = await api.post<{ areaId: number; state: AreaState; player: Entity }>('/area/join', {});
+          const res = await api.post<{ areaId: number; state: AreaState; player: Entity; mapName: string }>('/area/join', {});
           if (cancelled) return;
           setAreaId(res.areaId);
           setAreaState(res.state);
           setPlayer(res.player);
           setCurrentMapId(res.state.mapId);
-          setMapName(res.state.mapId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
+          setMapName(res.mapName ?? res.state.mapId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
         }
       } catch (err) {
         if (!cancelled) {
@@ -243,12 +269,12 @@ export function GameView({ mode, onExit }: GameViewProps) {
         setMessage('');
       } else {
         // Backend: join the new area (server handles removing from old area)
-        const res = await api.post<{ areaId: number; state: AreaState; player: Entity }>('/area/join', { mapId: exitTarget });
+        const res = await api.post<{ areaId: number; state: AreaState; player: Entity; mapName: string }>('/area/join', { mapId: exitTarget });
         setAreaId(res.areaId);
         setAreaState(res.state);
         setPlayer(res.player);
         setCurrentMapId(res.state.mapId);
-        setMapName(res.state.mapId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
+        setMapName(res.mapName ?? res.state.mapId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
         setMessage('');
       }
     } catch (err) {

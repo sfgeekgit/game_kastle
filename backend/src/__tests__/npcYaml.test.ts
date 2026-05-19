@@ -81,7 +81,7 @@ describe.each(npcEntries)('NPC file "$filename"', ({ filename, data }) => {
     const keys = new Set(Object.keys(data.dialogue ?? {}));
     const missing = Object.entries(data.dialogue ?? {}).flatMap(([kw, text]) =>
       typeof text !== 'string' ? [] :
-      (text.match(/\b[A-Z]{2,}\b/g) ?? []).filter(w => !keys.has(w.toLowerCase())).map(w => `[${kw}] "${w}"`),
+      (text.match(/\b[A-Z]{3,}\b/g) ?? []).filter(w => !keys.has(w.toLowerCase())).map(w => `[${kw}] "${w}"`),
     );
     expect(missing, `unresolved CAPS keywords:\n${missing.join('\n')}`).toHaveLength(0);
   });

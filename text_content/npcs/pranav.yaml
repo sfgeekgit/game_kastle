@@ -1,0 +1,20 @@
+npc_id: pranav
+name: "pranav"
+
+fallbacks:
+  - "I'd want to think about that more."
+  - "Interesting. I don't have a strong view yet."
+  - "Worth exploring. What's your intuition?"
+
+dialogue:
+  name: "I'm Pranav. From New York. I work on NEUROSCIENCE and AI safety."
+  hi: "Hey! I'm interested in the intersection of NEUROSCIENCE and AI safety. Also I have never had COFFEE and I never will. Ask me about the BRAIN, ALIGNMENT, or POKER."
+  look: "Thoughtful and genuinely curious — someone who has clearly thought hard about how biological and artificial intelligence connect. Extraordinarily intelligent and warm. You notice they're holding water, not coffee."
+  neuroscience: "Biological intelligence is a proof of concept that aligned general intelligence is possible. Understanding how the BRAIN works — really works — should inform how we build aligned AI."
+  alignment: "The brain isn't perfectly aligned either — humans have all kinds of biases and failure modes. But it's much more aligned than a randomly initialized neural net. That gap is interesting."
+  brain: "The brain solves problems current AI is still struggling with: efficient learning, causal reasoning, robust generalization. It's a datapoint we should be studying more."
+  coffee: "Never had it. Just don't. People are very weird about this. I have plenty of energy. I sleep well. The coffee dependency seems like a net negative honestly."
+  lifting: "Yes, come lift. Mark and Kabir are usually here. Good people to think with between sets."
+  poker: "I play with Phil, Mark, and Michele. Find Mark in the GYM if you want to join the league."
+  gym: "The gym is a good place to think. I usually lift with Mark and Kabir."
+  bye: "Good to meet you. Come to the GYM sometime."

@@ -2,7 +2,7 @@ export type { Player, UserAccount, CombatResult } from './types.js';
 export { calculateDamage, resolveCombat } from './combat.js';
 export { experienceRequired, canLevelUp, calculateLevel } from './stats.js';
 export type { TileType, Direction, EntityType, Tile, Entity, NpcDef, MapDef, AreaState, MoveResult } from './mapTypes.js';
-export { isTilePassable, directionDelta, applyMove } from './movement.js';
+export { isTilePassable, directionDelta, applyMove, findEntrySpawn } from './movement.js';
 export type { OverworldRoom } from './overworldLayout.js';
 export { OVERWORLD_LAYOUT, OVERWORLD_CANVAS_WIDTH, OVERWORLD_CANVAS_HEIGHT } from './overworldLayout.js';
 export type { NpcDialogueData, DialogueFallbacks } from './dialogue.js';

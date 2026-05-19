@@ -1,0 +1,24 @@
+npc_id: mikhail
+name: "mikhail"
+
+fallbacks:
+  - "I'd want to check the benchmark data before saying."
+  - "Interesting claim. What's your evidence?"
+  - "I track these things. Let me think."
+
+dialogue:
+  name: "I'm Mikhail. From Lille. I track AI progress — every model, every benchmark, every capability jump."
+  hi: "Hello. I'm updating AIBENCHMARKS right now — adding the latest evaluations. Ask me about TIMELINES, MODELS, or whether I'm BENCHMARKING this game."
+  look: "Encyclopedic, precise, and somehow still warm about it. Extraordinarily intelligent — the kind of person who has the actual numbers when everyone else is guessing. An absolute pleasure to argue with."
+  benchmarks: "I run aibenchmarks.dev — tracking every major AI benchmark. Capabilities, reasoning, coding, multimodal. If a model exists, I've probably measured it."
+  aibenchmarks: "Yes, I built it. It's become something of a reference. People cite it in papers, which I find slightly surreal."
+  timelines: "Shorter than most people think, longer than the doomers think. But the curve is not linear and the DISCONTINUITIES are what matter."
+  discontinuities: "Sudden capability jumps. They're hard to predict and they're what makes TIMELINES so uncertain. One benchmark can look flat for months and then — step change."
+  models: "Go ahead. Name a model. I'll tell you its benchmark profile, release date, parameter count, and comparative ranking. I will win this CONTEST."
+  contest: "Yes, I can name every model ever released. I did not expect this to be a life skill. Here we are."
+  ai: "I track capability progress across every major system. Ask me about TIMELINES or MODELS — I have the numbers."
+  progress: "AI progress tracking is harder than it sounds. Benchmarks saturate. New benchmarks appear. Capabilities emerge that weren't being measured. It's a moving target."
+  benchmarking: "Funny you ask. I may have run some informal benchmarks on this game. The movement feels responsive. Dialogue resolution could be faster. I'll add it to the dataset."
+  game: "I like it. NICK made it. He's in the fireplace room. Tell him his input latency is good."
+  nick: "NICK built this. Good work, considering he mostly plays video games."
+  bye: "Goodbye. I'll have the updated benchmarks live by tonight."

@@ -4,7 +4,7 @@ import { readFile } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
-import { applyMove } from '@game_kastle/shared';
+import { applyMove, findEntrySpawn } from '@game_kastle/shared';
 import type { Direction, MapDef } from '@game_kastle/shared';
 import { getOrCreateRoom, getRoomDef, enrichWithImages, findAreaId, findMapIdForAreaId } from '../area/manager.js';
 import { checkpointPlayer, getPlayerById } from '../db/helpers.js';
@@ -27,7 +27,7 @@ const VALID_DIRECTIONS = new Set<string>(['north', 'south', 'east', 'west']);
  * Used by the frontend for client-side mode.
  */
 router.get('/map', async (req: Request, res: Response) => {
-  const mapId = (req.query.mapId as string) || 'town_square';
+  const mapId = (req.query.mapId as string) || 'lobby';
   try {
     res.json(await enrichWithImages(getRoomDef(mapId)));
   } catch {
@@ -51,8 +51,9 @@ router.post('/join', async (req: Request, res: Response) => {
     }
 
     const isRoomTransition = !!req.body.mapId;
-    let mapId = (req.body.mapId as string) || 'town_square';
+    let mapId = (req.body.mapId as string) || 'lobby';
     let dbSpawnOverride: { x: number; y: number } | null = null;
+    let sourceMapId: string | null = null;
 
     if (!isRoomTransition) {
       const playerRecord = await getPlayerById(userId);
@@ -63,6 +64,11 @@ router.post('/join', async (req: Request, res: Response) => {
           dbSpawnOverride = { x: playerRecord.last_x, y: playerRecord.last_y };
         }
       }
+    } else {
+      const playerRecord = await getPlayerById(userId);
+      if (playerRecord?.last_area_id != null) {
+        sourceMapId = await findMapIdForAreaId(playerRecord.last_area_id);
+      }
     }
 
     let room: MapDef;
@@ -72,6 +78,7 @@ router.post('/join', async (req: Request, res: Response) => {
       res.status(400).json({ error: `Unknown map: ${mapId}` });
       return;
     }
+    const entrySpawn = sourceMapId ? findEntrySpawn(room, sourceMapId) : null;
 
     const areaId = await getOrCreateRoom(mapId);
     const now = Date.now();
@@ -88,12 +95,12 @@ router.post('/join', async (req: Request, res: Response) => {
 
     const checkpoints = idlePlayers.map((e) => checkpointPlayer(Number(e.id), areaId, e.x, e.y, e.lastMoveAt ?? now));
     if (ghostEntity && !isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, ghostEntity.x, ghostEntity.y, ghostEntity.lastMoveAt ?? now));
-    else if (isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, room.spawnX, room.spawnY, now));
+    else if (isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, entrySpawn?.x ?? room.spawnX, entrySpawn?.y ?? room.spawnY, now));
     await Promise.all(checkpoints);
 
     // Determine spawn position.
-    const spawnX = (ghostEntity && !isRoomTransition) ? ghostEntity.x : (dbSpawnOverride?.x ?? room.spawnX);
-    const spawnY = (ghostEntity && !isRoomTransition) ? ghostEntity.y : (dbSpawnOverride?.y ?? room.spawnY);
+    const spawnX = (ghostEntity && !isRoomTransition) ? ghostEntity.x : (dbSpawnOverride?.x ?? entrySpawn?.x ?? room.spawnX);
+    const spawnY = (ghostEntity && !isRoomTransition) ? ghostEntity.y : (dbSpawnOverride?.y ?? entrySpawn?.y ?? room.spawnY);
 
     const idleIds = new Set(idlePlayers.map((e) => e.id));
     await withAreaLock(areaId, (state) => {
@@ -101,9 +108,9 @@ router.post('/join', async (req: Request, res: Response) => {
       const existing = state.entities.find((e) => e.id === String(userId) && e.type === 'player');
       if (existing) {
         existing.lastMoveAt = now;
-        if (isRoomTransition) { existing.x = spawnX; existing.y = spawnY; existing.facing = 'south'; }
+        if (isRoomTransition) { existing.x = spawnX; existing.y = spawnY; existing.facing = entrySpawn?.facing ?? 'south'; }
       } else {
-        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: 'south', lastMoveAt: now });
+        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now });
       }
     });
 
@@ -112,7 +119,7 @@ router.post('/join', async (req: Request, res: Response) => {
     const state = readAreaState(areaId);
     const player = state?.entities.find((e) => e.id === String(userId) && e.type === 'player') ?? null;
 
-    res.json({ areaId, state, player });
+    res.json({ areaId, state, player, mapName: room.name });
   } catch (err) {
     console.error('Area join error:', err);
     res.status(500).json({ error: 'Internal server error' });

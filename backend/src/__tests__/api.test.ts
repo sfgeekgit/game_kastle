@@ -61,11 +61,11 @@ vi.mock('../area/store.js', () => {
     isAreaLoaded: vi.fn().mockReturnValue(true),
     loadArea: vi.fn(),
     readAreaState: vi.fn().mockReturnValue({
-      mapId: 'town_square',
-      width: 20,
-      height: 15,
-      tiles: Array.from({ length: 15 }, () =>
-        Array.from({ length: 20 }, () => ({ type: 'grass' })),
+      mapId: 'lobby',
+      width: 18,
+      height: 13,
+      tiles: Array.from({ length: 13 }, () =>
+        Array.from({ length: 18 }, () => ({ type: 'floor' })),
       ),
       entities,
     }),
@@ -86,13 +86,13 @@ vi.mock('../area/store.js', () => {
 });
 
 vi.mock('../area/manager.js', async () => {
-  const { townSquare } = await import('../../../shared/src/maps/townSquare.js');
+  const { lobby } = await import('../../../shared/src/maps/lobby.js');
   return {
     getOrCreateRoom: vi.fn().mockResolvedValue(1),
-    getRoomDef: vi.fn().mockReturnValue(townSquare),
+    getRoomDef: vi.fn().mockReturnValue(lobby),
     enrichWithImages: vi.fn().mockImplementation((r: unknown) => Promise.resolve(r)),
     findAreaId: vi.fn().mockResolvedValue(1),
-    TOWN_SQUARE_MAP_ID: 'town_square',
+    DEFAULT_MAP_ID: 'lobby',
   };
 });
 
@@ -243,15 +243,15 @@ describe('GET /api/text/:file', () => {
 });
 
 describe('GET /api/area/map', () => {
-  it('returns town square map def', async () => {
+  it('returns lobby map def', async () => {
     const res = await request(app).get('/api/area/map');
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('id', 'town_square');
-    expect(res.body).toHaveProperty('width', 20);
-    expect(res.body).toHaveProperty('height', 15);
+    expect(res.body).toHaveProperty('id', 'lobby');
+    expect(res.body).toHaveProperty('width', 18);
+    expect(res.body).toHaveProperty('height', 13);
     expect(res.body).toHaveProperty('tiles');
-    expect(res.body.tiles).toHaveLength(15);
-    expect(res.body.tiles[0]).toHaveLength(20);
+    expect(res.body.tiles).toHaveLength(13);
+    expect(res.body.tiles[0]).toHaveLength(18);
   });
 });
 

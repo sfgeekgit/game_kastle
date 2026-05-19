@@ -98,4 +98,4 @@ export async function findAreaId(mapId: string): Promise<number | undefined> {
   return row?.area_id;
 }
 
-export const TOWN_SQUARE_MAP_ID = 'town_square';
+export const DEFAULT_MAP_ID = 'lobby';

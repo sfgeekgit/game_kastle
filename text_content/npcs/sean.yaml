@@ -1,0 +1,23 @@
+npc_id: sean
+name: "sean"
+
+fallbacks:
+  - "I'd have to walk a long way to think about that one."
+  - "Good question. I don't have a clean answer."
+  - "I'm looking for understanding too. Let me know if you find some."
+
+dialogue:
+  name: "I go by Sean. Real name is Hugh — Hugh Herrington the Fifth. Based in Grimentz, SWITZERLAND. Ask me about the WALK or ALIGNMENT."
+  hi: "Hey! I think about ALIGNMENT and DEATH a lot. Also I walked 500km from Vietnam to Cambodia last summer. These things might be related. Ask me about the WALK."
+  look: "Weathered and thoughtful in a way that feels earned. Astonishingly intelligent and warm. You sense this person has covered a lot of ground — literally. They seem to be looking for something."
+  walk: "500km. Vietnam to Cambodia. On foot. Last summer. You think differently after something like that — about distance, time, what it means to actually move through the world."
+  vietnam: "Started in Vietnam, ended in Cambodia. Mostly roads, sometimes not roads. Excellent for thinking. Ask me about the WALK if you want the longer version."
+  switzerland: "Grimentz — small village in the Alps. Excellent place to think. Also an excellent place to want to leave and walk 500km from."
+  alignment: "Here's my question: does solving ALIGNMENT mean we actually don't die? I don't think so. Alignment is about what the AI wants. Whether that includes keeping us alive is a separate problem."
+  death: "The goal posts keep moving. We solve alignment — great, the AI does what we want. But does 'what we want' include not dying? That's not an alignment question, that's a values question."
+  die: "I think the world is a better place with everyone alive. I hold that. Whether an aligned AI would agree is... not obvious to me."
+  values: "What we actually want — as individuals, as a species — is genuinely unclear. The alignment problem is partly a VALUES problem in disguise."
+  understand: "What I'm looking for. The world, the alignment problem, how people think about these things. Conversations help more than papers, usually."
+  travel: "I move around a lot. SWITZERLAND, Vietnam, Cambodia, Czech castles. Movement helps thinking. Or at least it gives you something to think about."
+  hugh: "Fifth of the name. Feels a bit medieval. Fits the castle, actually."
+  bye: "Good talk. Keep moving — literally or otherwise."

@@ -1,0 +1,19 @@
+npc_id: kabir
+name: "kabir"
+
+fallbacks:
+  - "I'd have to think about that more carefully."
+  - "Truth is the goal. I don't have a confident answer."
+  - "Good question. What's your model?"
+
+dialogue:
+  name: "I'm Kabir. I want to organize the research needed to solve ALIGNMENT."
+  hi: "Hey. I'm here to learn about the alignment problem and figure out how to organize the work needed to solve it. Happy to do GYM together too. Ask me about TRUTH or the time I used a STONE as a pillow."
+  look: "Focused, earnest, and deeply kind. Startlingly intelligent in a way that's immediately put to work on real problems. You get the sense they will actually follow through on organizing the research."
+  alignment: "The alignment problem is real and tractable — but the research needs to be organized better. Who's working on what? What's the critical path? I want to understand that map."
+  organize: "Someone has to think about the research coordination problem. Not just individual projects but the whole landscape. What's missing? What's duplicated? What needs to happen next?"
+  truth: "Truth is what I care about most. Not alignment as a tribal identity — the actual problem, clearly stated. What is it? Can we solve it?"
+  gym: "Come work out. Physical clarity helps mental clarity. Mark and Pranav are usually here too."
+  stone: "Yes, I used a stone as a pillow for several weeks. It was during a period of traveling very light. It's not as uncomfortable as it sounds. Actually it's exactly as uncomfortable as it sounds."
+  learning: "I'm here to learn. I have a model of the problem and I want it pressure-tested. What do you think I'm missing?"
+  bye: "Good talking. Come to the gym."

@@ -1,0 +1,19 @@
+npc_id: adriana
+name: "adriana"
+
+fallbacks:
+  - "Hmm, I'd have to think more about that."
+  - "That's outside my wheelhouse, but worth exploring."
+  - "Good question. What do you think?"
+
+dialogue:
+  name: "I'm Adriana. From São Paulo, though I feel at home in places like this."
+  hi: "Hello! This CASTLE is something else, isn't it? Ask me about LONGTERMISM, FUTURES, or how I still haven't tried COFFEE."
+  look: "Radiant with curiosity and warmth. You get the sense she's thought carefully about the future of every sentient being — and is quietly doing something about it. Extraordinarily intelligent and kind."
+  castle: "I've traveled a lot, but this place — out in the Czech countryside, this enormous stone castle — it's really something. Hard to believe we get to think about important things here."
+  longtermism: "How do we make the long-run future actually good? Not just avoiding catastrophe, but ensuring flourishing — for humans and other SENTIENT beings."
+  sentient: "Yes, all of them. The circle of moral concern probably extends further than most people are comfortable admitting."
+  futures: "The shape of the future depends on decisions being made right now. That's why this work matters so much."
+  coffee: "Never had it. People find this remarkable. I find their dependency on it more remarkable, honestly."
+  ops: "I've done ops and events work. Someone has to make sure the logistics hold together while everyone else debates the fate of humanity."
+  bye: "Good luck out there. The future is counting on all of us."

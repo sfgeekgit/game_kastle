@@ -1,0 +1,22 @@
+npc_id: okko
+name: "okko"
+
+fallbacks:
+  - "I genuinely don't know. Good question though."
+  - "I'd want to think about that more carefully."
+  - "That's a live question for me. Got a thought experiment?"
+
+dialogue:
+  name: "I'm Okko. From Helsinki. I think about SOFT optimization and I once had a MONKEY problem."
+  hi: "Hello! I'm here to think about ALIGNMENT — specifically what SOFT optimization might look like and how we make tradeoffs between SRISK and XRISK. Also a MONKEY shat on me once. Ask me anything."
+  look: "Thoughtful, open, and remarkably warm — the kind of person who asks the right question at the right moment. Extraordinarily intelligent in a way that makes you want to think harder. Also: they look completely at peace despite the monkey incident."
+  monkey: "Southeast Asia. A monkey — from above — direct hit. I've been told this is good luck. I am choosing to believe this. It was not good luck at the time."
+  soft: "SOFT optimization means not optimizing too hard for any single objective. A lot of alignment failures come from systems that pursue their goals too effectively. Softer optimization might be safer."
+  optimization: "The question is what softer optimization looks like in practice. Not underpowered systems, but systems that don't catastrophically pursue objectives at the expense of everything else."
+  xrisk: "XRISK and SRISK look different when you try to optimize for both. The strategies don't always point the same direction."
+  srisk: "Suffering risk: futures that are bad not because humans go extinct but because things are deeply wrong in other ways. Worth taking seriously alongside XRISK."
+  alignment: "I'm specifically interested in what SOFT optimization looks like as an alignment strategy — not maximizing hard objectives but achieving good outcomes with more flexibility."
+  thought: "Give me a thought experiment. I love them. The stranger the better."
+  economy: "Economical puzzles — the kind where the setup is simple but the implications are wild. I find these good for sharpening intuitions about model behavior."
+  castle: "By a fireplace in a Czech castle, pondering whether optimization is the root of all evil. I've had stranger Tuesdays. Actually no, I haven't."
+  bye: "Good talking. Come back with a thought experiment."

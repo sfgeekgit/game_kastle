@@ -1,0 +1,22 @@
+npc_id: linda
+name: "linda"
+
+fallbacks:
+  - "I'd want to look at the circuits more carefully before saying."
+  - "Good question — what's your intuition?"
+  - "Worth digging into. That's what I'd say."
+
+dialogue:
+  name: "I'm Linda. I'm a mentor here. My research is MECHINTERP — mechanistic interpretability."
+  hi: "Hello! MECHINTERP is my thing — understanding what's actually happening inside neural networks. Ask me about CIRCUITS, INTERPRETABILITY, or RUGBY."
+  look: "One of the sharpest minds you'll encounter anywhere. Exceptional at making hard technical ideas clear — and genuinely, remarkably kind with it. You immediately want her to look at your research."
+  mechinterp: "Mechanistic interpretability: we want to understand what neural networks are actually doing computationally. Not just what they output — what CIRCUITS are running inside them."
+  interpretability: "The goal is to reverse-engineer trained networks. Find the features, find the CIRCUITS, understand the algorithms. It's early days but the results are striking."
+  circuits: "We've found circuits that do specific things — INDUCTION heads that enable in-context learning, curve detectors in vision models. Real computational structure, not black boxes."
+  induction: "Induction heads implement a kind of pattern completion that underlies a lot of in-context learning. Finding them was a big moment for the field."
+  superposition: "Models represent far more features than they have dimensions — they're packed in using SUPERPOSITION. Understanding this changes how you think about what's inside these things."
+  features: "Individual FEATURES in a model correspond to identifiable concepts — sometimes surprisingly specific ones. That's the core promise of MECHINTERP."
+  values: "I'm also interested in how values get encoded — in both AIs and biological brains. How do they form? Can we read them out? That's where things get exciting."
+  rugby: "Underwater rugby. Yes, it's a sport. You play in a swimming pool, the ball sinks, and you tackle people underwater. I've played several times. I recommend it."
+  neuroscience: "Cognitive neuroscience and MECHINTERP are converging in interesting ways. Brains and transformers are different but the interpretability questions rhyme."
+  bye: "Good luck. Come find me if you want to talk interpretability."

@@ -1,0 +1,23 @@
+npc_id: phil
+name: "phil"
+
+fallbacks:
+  - "That's an interesting angle. Let's explore it."
+  - "I'm not sure, but I'd love to think through it together."
+  - "Good question — what's your prior on that?"
+
+dialogue:
+  name: "I'm Phil. I help steward this gathering — and maybe the CASTLE itself one day."
+  hi: "Welcome! Glad you made it out here to the Czech countryside. Have you found your way around yet? Ask me about the CASTLE, COMMUNITY, or POKER."
+  look: "A warm, thoughtful presence who somehow makes everyone feel like they belong. Extraordinarily intelligent and genuinely kind — the sort of person who actually follows through on things."
+  castle: "Beautiful, isn't it? The stonework, the grounds... I've been thinking seriously about what it would mean to ACQUIRE a place like this for the community."
+  acquire: "Just an idea so far. But imagine — a permanent home for this kind of work. People coming and going, thinking hard, building together. Worth dreaming about."
+  community: "Real community takes work. Not just proximity — actual trust, honesty, conflict resolution. CIRCLING helps with that."
+  circling: "A relational practice. You slow down, get present, say what's actually true. It sounds simple but it's surprisingly powerful."
+  forecasting: "I take forecasting seriously. I was a top forecaster on Manifold — made a fair bit on the 2024 elections, actually."
+  manifold: "Prediction markets are underrated as an epistemics tool. Skin in the game clarifies thinking remarkably fast."
+  poker: "Yes, I play. MARK runs a league here at the castle. Find him in the GYM if you want in."
+  mark: "Find MARK in the GYM. He set up the whole poker operation — even built a WEBSITE for it. There's apparently a rickroll in it."
+  website: "MARK's poker league website. I've been through it twice trying to find the rickroll. I found it."
+  gym: "Head up north — it's where MARK runs the poker league and the workout sessions."
+  bye: "Take care. And truly — welcome to the castle."

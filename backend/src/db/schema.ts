@@ -55,16 +55,22 @@ export async function initializeDatabase(): Promise<void> {
   // Seed all area_defs if not present
   await query(`
     INSERT IGNORE INTO area_defs (area_def_id, name, type, map_id) VALUES
-      (1,  'Town Square',        'fixed', 'town_square'),
-      (2,  'The Rusty Flagon',   'fixed', 'tavern'),
-      (3,  'The Marketplace',    'fixed', 'marketplace'),
-      (4,  'Forest Path',        'fixed', 'forest_path'),
-      (5,  'Castle Gates',       'fixed', 'castle_gates'),
-      (6,  'The Docks',          'fixed', 'docks'),
-      (7,  'Herbalist Garden',   'fixed', 'herbalist_garden'),
-      (8,  'The Graveyard',      'fixed', 'graveyard'),
-      (9,  'Temple of Virtue',   'fixed', 'temple'),
-      (10, 'Dungeon Entrance',   'fixed', 'dungeon_entrance')
+      (1,  'Lobby',                    'fixed', 'lobby'),
+      (2,  'Fireplace Room',           'fixed', 'fireplace'),
+      (3,  'Stairs',                   'fixed', 'stairs1'),
+      (4,  'Kitchen',                  'fixed', 'kitchen'),
+      (5,  'Courtyard',                'fixed', 'courtyard'),
+      (6,  'Study Lab',                'fixed', 'study_lab'),
+      (7,  'Hallway',                  'fixed', 'hall_down_back'),
+      (8,  'Hallway',                  'fixed', 'hall_greenroom'),
+      (9,  'Greenroom',                'fixed', 'greenroom'),
+      (10, 'Gym',                      'fixed', 'gym'),
+      (11, 'Hallway',                  'fixed', 'hall_upstairs_back'),
+      (12, 'Hallway',                  'fixed', 'hall_upstairs_side_chat'),
+      (13, 'Main Hall',                'fixed', 'main_hall'),
+      (14, 'Library',                  'fixed', 'library'),
+      (15, 'Common Room',              'fixed', 'common_room'),
+      (16, 'Mini Kitchen',             'fixed', 'mini_kitch')
   `);
 
   // Combat catalog tables — structure only, no seed data.

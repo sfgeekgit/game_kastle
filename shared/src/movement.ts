@@ -1,4 +1,4 @@
-import type { AreaState, Direction, Entity, MoveResult, Tile } from './mapTypes.js';
+import type { AreaState, Direction, Entity, MapDef, MoveResult, Tile } from './mapTypes.js';
 
 export function isTilePassable(tile: Tile): boolean {
   return tile.type !== 'wall';
@@ -75,4 +75,28 @@ export function applyMove(state: AreaState, player: Entity, direction: Direction
     exitedArea,
     exitTarget: exitedArea ? (tile.exitTarget ?? 'welcome') : undefined,
   };
+}
+
+/**
+ * Find the spawn position when entering `room` from `fromMapId`.
+ * Locates the exit tile that leads back to the source room and returns
+ * a position one step inward with the appropriate inward-facing direction.
+ * Returns null if no matching exit is found (caller falls back to room.spawnX/Y).
+ */
+export function findEntrySpawn(
+  room: MapDef,
+  fromMapId: string,
+): { x: number; y: number; facing: Direction } | null {
+  for (let row = 0; row < room.height; row++) {
+    for (let col = 0; col < room.width; col++) {
+      const tile = room.tiles[row][col];
+      if (tile.type === 'exit' && tile.exitTarget === fromMapId) {
+        if (row === 0)               return { x: col,            y: 1,          facing: 'south' };
+        if (row === room.height - 1) return { x: col,            y: row - 1,    facing: 'north' };
+        if (col === 0)               return { x: 1,              y: row,        facing: 'east'  };
+        if (col === room.width - 1)  return { x: room.width - 2, y: row,        facing: 'west'  };
+      }
+    }
+  }
+  return null;
 }

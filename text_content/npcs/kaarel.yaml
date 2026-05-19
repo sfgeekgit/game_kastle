@@ -1,0 +1,20 @@
+npc_id: kaarel
+name: "kaarel"
+
+fallbacks:
+  - "I'd need to think more carefully about that."
+  - "Interesting. What's your model of why that's true?"
+  - "That's a place where I have genuine uncertainty."
+
+dialogue:
+  name: "I'm Kaarel. Mentor here. I work on existential risk from advanced AI — trying to help people think about it more clearly."
+  hi: "Hello. I'm hoping to help people think better about ALIGNMENT while I'm here. Ask me about LANGUAGE, ALIGNMENT, or the time I found an infinite IKEA hack."
+  look: "Precisely the sort of person you'd want thinking about existential risk. Incisively intelligent and genuinely warm — their feedback will improve your ideas even when it stings a little."
+  language: "Philosophy of LANGUAGE is underrated in alignment. What does it mean for a model to 'understand' something? The question is thornier than it looks."
+  alignment: "I give FEEDBACK on people's plans for building safe systems. What are you working on?"
+  feedback: "I try to be honest and useful. What's your current model of the problem?"
+  ikea: "So IKEA was selling advent calendars at a discount. The calendars contained IKEA gift cards worth more than the cost of the calendar. I bought many calendars."
+  combinatorics: "One of my genuine pleasures. There's something beautiful about counting arguments — they force clarity in a way that verbal reasoning sometimes obscures."
+  risk: "I think about the tail risks seriously. The question isn't whether to take them seriously but how to reason carefully about them."
+  czech: "The Czech countryside is extraordinary. I didn't expect the castle to feel quite so timeless. It lends a certain gravity to the conversations."
+  bye: "Good luck with your thinking. Come find me if you want feedback."
