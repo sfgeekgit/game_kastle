@@ -9,6 +9,7 @@ import { OverworldSidebar } from './OverworldSidebar.js'; // room layout: shared
 interface GameViewProps {
   mode: 'frontend' | 'backend';
   onExit: () => void;
+  myAvatarUrl?: string | null;
 }
 
 // Viewport dimensions in tiles (odd numbers keep player near center)
@@ -70,6 +71,7 @@ const TILE_COLORS: Record<string, string> = {
   couch_s: '#a06030',
   couch_e: '#a06030',
   couch_w: '#a06030',
+  piano:   '#1a1a2e',
 };
 
 function getFacingOffset(tileSize: number): Record<Direction, { top: number; left: number; w: number; h: number }> {
@@ -80,7 +82,7 @@ function getFacingOffset(tileSize: number): Record<Direction, { top: number; lef
     west: { top: 4, left: 0, w: 6, h: tileSize - 8 },
   };
 }
-function getNpcImageUrl(entity: Entity): string | undefined {
+function getEntityImageUrl(entity: Entity): string | undefined {
   return entity.image ? `${import.meta.env.BASE_URL}npcs/${entity.image}` : undefined;
 }
 
@@ -157,7 +159,7 @@ function getVisibleTiles(
   return tiles;
 }
 
-export function GameView({ mode, onExit }: GameViewProps) {
+export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
   const [areaState, setAreaState] = useState<AreaState | null>(null);
   const [player, setPlayer] = useState<Entity | null>(null);
   const [areaId, setAreaId] = useState<number | null>(null);
@@ -515,7 +517,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
           const viewY = (entity.y - camY) * tileSize + index * offsetStep;
 
           const bgColor = isNpc ? '#2d6a4f' : isMe ? '#e63946' : '#457b9d';
-          const npcImageUrl = isNpc ? getNpcImageUrl(entity) : null;
+          const npcImageUrl = getEntityImageUrl(entity) ?? (isMe && myAvatarUrl ? myAvatarUrl : null);
 
           return (
             <div
@@ -595,7 +597,7 @@ export function GameView({ mode, onExit }: GameViewProps) {
           npcId={dialogueNpc.dialogueFile ?? dialogueNpc.id}
           npcName={dialogueNpc.name ?? 'Unknown'}
           onClose={() => setDialogueNpc(null)}
-	  img={getNpcImageUrl(dialogueNpc)}
+	  img={getEntityImageUrl(dialogueNpc)}
         />
       )}
 

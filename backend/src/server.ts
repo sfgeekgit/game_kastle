@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { createApp } from './app.js';
 import { initializeDatabase } from './db/schema.js';
 import { loadCombatCatalog } from './combat/catalog.js';

@@ -10,6 +10,9 @@ export async function initializeDatabase(): Promise<void> {
     )
   `);
 
+  await query(`ALTER TABLE user_login ADD COLUMN IF NOT EXISTS discord_id VARCHAR(30) NULL UNIQUE`);
+  await query(`ALTER TABLE user_login ADD COLUMN IF NOT EXISTS discord_avatar VARCHAR(100) NULL`);
+
   await query(`
     CREATE TABLE IF NOT EXISTS players (
       user_id INT PRIMARY KEY,

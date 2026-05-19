@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import rateLimit from 'express-rate-limit';
 import { USE_RATE_LIMITS } from '../config.js';
 import passport from './passport.js';
-import { getUserByEmail, registerUser } from '../db/helpers.js';
+import { getUserByEmail, getUserById, registerUser } from '../db/helpers.js';
 
 const BCRYPT_ROUNDS = 12;
 const MAX_PASSWORD_BYTES = 72; // bcrypt silently truncates beyond this
@@ -23,15 +23,30 @@ const authLimiter = rateLimit({
 const router = Router();
 if (USE_RATE_LIMITS) router.use(authLimiter);
 
-router.get('/status', (req: Request, res: Response) => {
+const DISCORD_ENABLED = !!process.env.DISCORD_CLIENT_ID;
+const DISCORD_LOGIN_REQUIRED = process.env.DISCORD_LOGIN_REQUIRED === 'true';
+
+router.get('/status', async (req: Request, res: Response) => {
+  const base = {
+    discordLoginAvailable: DISCORD_ENABLED,
+    discordLoginRequired: DISCORD_LOGIN_REQUIRED,
+    discordLoginUrl: DISCORD_ENABLED ? '/api/auth/discord' : null,
+  };
+
   if (!req.session?.userId) {
-    res.json({ authenticated: false });
+    res.json({ authenticated: false, ...base });
     return;
   }
+  const user = await getUserById(req.session.userId);
+  const avatarUrl = user?.discord_id && user?.discord_avatar
+    ? `/npcs/avatar_${user.discord_id}.png`
+    : null;
   res.json({
     authenticated: true,
     userId: req.session.userId,
     isRegistered: req.session.isRegistered || false,
+    discordAvatarUrl: avatarUrl,
+    ...base,
   });
 });
 
@@ -125,5 +140,34 @@ router.post('/logout', (req: Request, res: Response) => {
     res.json({ success: true });
   });
 });
+
+// Discord OAuth — only mounted if DISCORD_CLIENT_ID is configured
+if (process.env.DISCORD_CLIENT_ID) {
+  const DISCORD_SUCCESS_REDIRECT = process.env.DISCORD_SUCCESS_REDIRECT || '/';
+  const DISCORD_FAILURE_REDIRECT = process.env.DISCORD_FAILURE_REDIRECT || '/?discord_error=1';
+
+  router.get('/discord', passport.authenticate('discord'));
+
+  router.get(
+    '/discord/callback',
+    passport.authenticate('discord', { session: false, failureRedirect: DISCORD_FAILURE_REDIRECT }),
+    (req: Request, res: Response) => {
+      const discordUser = req.user as { user_id: number } | undefined;
+      if (!discordUser) {
+        res.redirect(DISCORD_FAILURE_REDIRECT);
+        return;
+      }
+      req.session.regenerate((err) => {
+        if (err) {
+          res.redirect(DISCORD_FAILURE_REDIRECT);
+          return;
+        }
+        req.session.userId = discordUser.user_id;
+        req.session.isRegistered = true;
+        req.session.save(() => res.redirect(DISCORD_SUCCESS_REDIRECT));
+      });
+    },
+  );
+}
 
 export default router;

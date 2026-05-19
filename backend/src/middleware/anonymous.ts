@@ -1,6 +1,8 @@
 import type { Request, Response, NextFunction } from 'express';
 import { createUser, createPlayer } from '../db/helpers.js';
 
+const DISCORD_LOGIN_REQUIRED = process.env.DISCORD_LOGIN_REQUIRED === 'true';
+
 function randomSixDigit(): number {
   return Math.floor(Math.random() * 900000) + 100000;
 }
@@ -25,15 +27,29 @@ async function generateUserId(): Promise<number> {
 
 export async function ensureAnonymousUser(
   req: Request,
-  _res: Response,
+  res: Response,
   next: NextFunction,
 ): Promise<void> {
+  // Auth routes manage their own sessions — never block or auto-create for them
+  if (req.path.startsWith('/auth/')) {
+    next();
+    return;
+  }
+
   try {
-    if (!req.session.userId) {
-      const userId = await generateUserId();
-      req.session.userId = userId;
-      req.session.isRegistered = false;
+    if (req.session.userId) {
+      next();
+      return;
     }
+
+    if (DISCORD_LOGIN_REQUIRED) {
+      res.status(401).json({ error: 'Login required', loginUrl: '/api/auth/discord' });
+      return;
+    }
+
+    const userId = await generateUserId();
+    req.session.userId = userId;
+    req.session.isRegistered = false;
     next();
   } catch (err) {
     next(err);

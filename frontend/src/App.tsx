@@ -10,6 +10,10 @@ interface AuthStatus {
   authenticated: boolean;
   userId?: string;
   isRegistered?: boolean;
+  discordAvatarUrl?: string | null;
+  discordLoginAvailable?: boolean;
+  discordLoginRequired?: boolean;
+  discordLoginUrl?: string | null;
 }
 
 type Screen = 'welcome' | 'frontend-game' | 'backend-game' | 'combat-pixi' | 'combat-server' | 'pvp-waiting' | 'overworld';
@@ -17,6 +21,7 @@ type Screen = 'welcome' | 'frontend-game' | 'backend-game' | 'combat-pixi' | 'co
 function App() {
   const [auth, setAuth] = useState<AuthStatus | null>(null);
   const [screen, setScreen] = useState<Screen>('welcome');
+  const discordError = new URLSearchParams(window.location.search).get('discord_error');
   const [loading, setLoading] = useState(true);
   const [networkedCombat, setNetworkedCombat] = useState<CombatSessionResult | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -37,11 +42,11 @@ function App() {
   if (loading) return <div className="loading">Loading...</div>;
 
   if (screen === 'frontend-game') {
-    return <GameView mode="frontend" onExit={() => setScreen('welcome')} />;
+    return <GameView mode="frontend" onExit={() => setScreen('welcome')} myAvatarUrl={auth?.discordAvatarUrl} />;
   }
 
   if (screen === 'backend-game') {
-    return <GameView mode="backend" onExit={() => setScreen('welcome')} />;
+    return <GameView mode="backend" onExit={() => setScreen('welcome')} myAvatarUrl={auth?.discordAvatarUrl} />;
   }
 
   if (screen === 'overworld') {
@@ -93,14 +98,28 @@ function App() {
 
 
 	<br />
-        {auth?.authenticated && (
-          <p className="auth-status">
-            Welcome {auth.isRegistered ? 'Registered player' : 'Anonymous player'}
-            {auth.userId && <span style={{ fontSize: '0.65rem', opacity: 0.5 }}> id:{auth.userId}</span>}
-	    <br />
-	    No login needed! Will have auth someday, but for now your cookie is set.
-          </p>
-        )}
+        {auth?.discordAvatarUrl ? (
+          <div className="auth-status" style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
+            <img src={auth.discordAvatarUrl} alt="avatar" style={{ width: 40, height: 40, borderRadius: '50%', border: '2px solid #666' }} />
+            <span>Welcome back</span>
+            <button onClick={() => api.post('/auth/logout').then(() => { setAuth(null); setScreen('welcome'); window.location.reload(); })}
+              style={{ background: 'none', border: '1px solid #666', color: '#aaa', borderRadius: 4, padding: '2px 10px', cursor: 'pointer', fontSize: '0.8rem' }}>
+              Log out
+            </button>
+          </div>
+        ) : auth?.discordLoginAvailable ? (
+          <div style={{ marginTop: 8 }}>
+            <a href={`${import.meta.env.BASE_URL}api/auth/discord`} style={{ display: 'inline-block', backgroundColor: '#5865F2', color: '#fff', padding: '10px 20px', borderRadius: 6, textDecoration: 'none', fontWeight: 'bold', fontFamily: 'inherit' }}>
+              Login with Discord
+            </a>
+            {auth.discordLoginRequired && (
+              <p style={{ fontSize: '0.8rem', color: '#aaa', marginTop: 6 }}>Login required to play.</p>
+            )}
+            {discordError && (
+              <p style={{ fontSize: '0.8rem', color: '#f87171', marginTop: 6 }}>Login failed. You may not be a member of the required Discord server.</p>
+            )}
+          </div>
+        ) : null}
       </header>
 
       <main className="welcome-screen">

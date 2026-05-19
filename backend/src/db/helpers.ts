@@ -5,6 +5,8 @@ export interface UserRow extends RowDataPacket {
   user_id: number;
   email: string | null;
   password_hash: string | null;
+  discord_id: string | null;
+  discord_avatar: string | null;
   created_at: Date;
 }
 
@@ -64,6 +66,29 @@ export async function registerUser(
   await query<ResultSetHeader>(
     'UPDATE user_login SET email = ?, password_hash = ? WHERE user_id = ?',
     [email, passwordHash, userId],
+  );
+}
+
+export async function getUserByDiscordId(discordId: string): Promise<UserRow | null> {
+  const rows = await query<UserRow[]>('SELECT * FROM user_login WHERE discord_id = ?', [discordId]);
+  return rows[0] || null;
+}
+
+export async function createDiscordUser(
+  userId: number,
+  discordId: string,
+  avatar: string | null,
+): Promise<void> {
+  await query<ResultSetHeader>(
+    'INSERT INTO user_login (user_id, discord_id, discord_avatar) VALUES (?, ?, ?)',
+    [userId, discordId, avatar],
+  );
+}
+
+export async function updateDiscordAvatar(userId: number, avatar: string | null): Promise<void> {
+  await query<ResultSetHeader>(
+    'UPDATE user_login SET discord_avatar = ? WHERE user_id = ?',
+    [avatar, userId],
   );
 }
 

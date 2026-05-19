@@ -456,6 +456,32 @@ body {
 .game-tile-couch_s { transform: rotate(180deg); }
 .game-tile-couch_w { transform: rotate(270deg); }
 
+/* Piano — upright piano against a wall, keyboard strip at bottom */
+.game-tile-piano {
+  position: relative;
+  overflow: hidden;
+}
+.game-tile-piano::before {
+  content: '';
+  position: absolute;
+  inset: 8% 12% 40% 12%;
+  background: #0d0d1e;
+  border: 2px solid #3a3a5a;
+  border-radius: 2px;
+}
+.game-tile-piano::after {
+  content: '';
+  position: absolute;
+  left: 12%; right: 12%;
+  bottom: 12%; height: 22%;
+  background: repeating-linear-gradient(
+    to right,
+    #f5f5f0 0px, #f5f5f0 4px,
+    #1a1a1a 4px, #1a1a1a 6px
+  );
+  border: 1px solid #555;
+}
+
 /* Entity (player) */
 .game-entity {
   pointer-events: none; /* tiles handle clicks */

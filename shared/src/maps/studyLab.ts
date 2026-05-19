@@ -81,6 +81,7 @@ export const studyLab: MapDef = {
     [w, w, w, w, w, w, w, w, w, eK, w, w, w, w, w, w, w, w],
   ],
   npcs: [
+    { id: 'nick',    name: 'Nick',    x: 11, y: 11, dialogueFile: 'nick' },
     { id: 'mikhail', name: 'Mikhail', x: 9,  y: 11, dialogueFile: 'mikhail' },
     { id: 'david',   name: 'David',   x: 8,  y: 9,  dialogueFile: 'david' },   // moved from (4,9) — table there
     { id: 'linda',   name: 'Linda',   x: 16, y: 19, dialogueFile: 'linda' },   // moved from (13,19) — table there

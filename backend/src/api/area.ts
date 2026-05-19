@@ -7,7 +7,7 @@ import yaml from 'js-yaml';
 import { applyMove, findEntrySpawn } from '@game_kastle/shared';
 import type { Direction, MapDef } from '@game_kastle/shared';
 import { getOrCreateRoom, getRoomDef, enrichWithImages, findAreaId, findMapIdForAreaId } from '../area/manager.js';
-import { checkpointPlayer, getPlayerById } from '../db/helpers.js';
+import { checkpointPlayer, getPlayerById, getUserById } from '../db/helpers.js';
 import { withAreaLock, readAreaState, findPlayerEntity, getAllAreaSnapshots } from '../area/store.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -83,6 +83,11 @@ router.post('/join', async (req: Request, res: Response) => {
     const areaId = await getOrCreateRoom(mapId);
     const now = Date.now();
 
+    const userRecord = await getUserById(userId);
+    const avatarImage = userRecord?.discord_id && userRecord?.discord_avatar
+      ? `avatar_${userRecord.discord_id}.png`
+      : undefined;
+
     // Read state before lock to find idle players and any ghost entity for this user.
     const currentState = readAreaState(areaId);
     const allEntities = currentState?.entities ?? [];
@@ -108,9 +113,10 @@ router.post('/join', async (req: Request, res: Response) => {
       const existing = state.entities.find((e) => e.id === String(userId) && e.type === 'player');
       if (existing) {
         existing.lastMoveAt = now;
+        existing.image = avatarImage;
         if (isRoomTransition) { existing.x = spawnX; existing.y = spawnY; existing.facing = entrySpawn?.facing ?? 'south'; }
       } else {
-        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now });
+        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now, image: avatarImage });
       }
     });
 

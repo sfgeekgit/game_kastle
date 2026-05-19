@@ -7,6 +7,7 @@ const rg = { type: 'floor' as const, variant: 'rug' };
 const w  = { type: 'wall' as const };
 const ch = { type: 'wall' as const, variant: 'chair' };
 const ta = { type: 'wall' as const, variant: 'table' };
+const pi = { type: 'wall' as const, variant: 'piano' };
 const eL = { type: 'exit' as const, exitTarget: 'lobby' };
 
 // Fireplace Room — 10×13
@@ -25,8 +26,8 @@ export const fireplace: MapDef = {
   tiles: [
     // row 0 — north wall
     [w, w, w, w, w, w, w, w, w, w],
-    // row 1 — stone floor with slight texture
-    [w, f, s1, f, f, f, s2, f, f, w],
+    // row 1 — piano against north wall (cols 5-6), texture elsewhere
+    [w, f, s1, f, f, pi, pi, s2, f, w],
     // row 2 — fireplace mantle (cols 3-6)
     [w, f, s1, w, w, w, w, s2, f, w],
     // row 3
@@ -51,8 +52,8 @@ export const fireplace: MapDef = {
     [w, w, w, w, w, w, w, w, w, w],
   ],
   npcs: [
-    { id: 'nick', name: 'Nick', x: 5, y: 3,  dialogueFile: 'nick' },
-    { id: 'nico', name: 'Nico', x: 3, y: 7,  dialogueFile: 'nico' },
-    { id: 'okko', name: 'Okko', x: 6, y: 10, dialogueFile: 'okko' },
+    { id: 'nico',   name: 'Nico',   x: 3, y: 7,  dialogueFile: 'nico' },
+    { id: 'okko',   name: 'Okko',   x: 6, y: 10, dialogueFile: 'okko' },
+    { id: 'london', name: 'London', x: 5, y: 2,  dialogueFile: 'london' },
   ],
 };
