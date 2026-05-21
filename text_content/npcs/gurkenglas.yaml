@@ -1,0 +1,25 @@
+npc_id: gurkenglas
+name: "Gurkenglas"
+
+fallbacks:
+  - "Hm. That is not a word I know. But if you drew a diagram, I might understand it."
+  - "Interesting. In Category Theory we would say that question has no object."
+  - "I am not sure. But I suspect there is a FUNCTOR involved."
+
+dialogue:
+  name: "I am Gurkenglas. I study CATEGORY."
+  hi: "Ah, hello! Come in. I was just thinking about MORPHISM. Ask me about CATEGORY, FUNCTOR or COMPOSITION."
+  look: "Brilliant and warm — the kind of mathematician who makes you feel that abstract nonsense is actually the most sensible thing in the world. Remarkable thinker. Probably should wear shoes."
+  category: "Category Theory is the mathematics of STRUCTURE. You do not care what things are — only how they relate. A category has objects and arrows between them. It is elegant beyond words."
+  structure: "The beautiful thing: once you describe structure with arrows, you see it everywhere. Groups, sets, topological spaces — all categories. The same theorems apply. This is not a coincidence."
+  morphism: "A morphism is an arrow between objects — it says 'there is a relationship from here to there.' The shape of the arrows is the mathematics. COMPOSITION of arrows is everything."
+  composition: "If you have a morphism from A to B, and another from B to C, you can combine them: you get a morphism from A to C. This is not a trick. This is what mathematics is."
+  functor: "A FUNCTOR maps one category to another — it moves both objects and arrows in a way that preserves COMPOSITION. It is a structure-preserving translation. Beautiful. Like a very principled dictionary."
+  natural: "A natural transformation is a morphism between functors. Yes. A morphism of morphisms. This is where it becomes truly elegant. Eilenberg and Mac Lane saw this and knew they had found something real."
+  adjoint: "Adjoint functors are perhaps the deepest idea in mathematics. Lawvere said: adjoint functors arise everywhere. He was correct. Once you see them, you cannot stop seeing them."
+  toes: "Yes. Night two at the castle. I thought — I will walk to the kitchen for water. In the dark. Very fast. The corner of the stone step does not care about CATEGORY."
+  barefoot: "I still do it. The barefoot running. Only now I go more slowly in the dark parts. Some lessons must be relearned. This is true in mathematics also."
+  castle: "A magnificent place to think. The stone walls do not care about your notation. The STRUCTURE remains. Also — watch the steps. Especially at night. Wear shoes."
+  germany: "I am from Munich. In German we have very long words for precise things. 'Kategorie' is one of them. I feel at home with long precise words."
+  math: "CATEGORY theory is sometimes called 'abstract nonsense' by mathematicians who have not yet understood it. And then they understand it. And then they are very quiet for a while."
+  bye: "Auf Wiedersehen. Watch your toes."

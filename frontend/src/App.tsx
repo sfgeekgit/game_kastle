@@ -92,9 +92,9 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Haunted Castle</h1>
-	<h3> </h3>
-	<p>Walk around. The gold squares are doors.</p>
-	<p>Say "hi" and "bye" and "job" and "look" or ask follow up questions.</p>
+	<h3> Murder Mystery Part 2!</h3>
+	<h4>Never mind... </h4><h4>Nick is not going to finish this before the seminar ends :( </h4>
+
 
 
 	<br />
@@ -120,6 +120,7 @@ function App() {
             )}
           </div>
         ) : null}
+	Discord login required <br/>You <b>must</b> be part of the AFFINE discord to play.
       </header>
 
       <main className="welcome-screen">
@@ -130,9 +131,6 @@ function App() {
           <button className="play-btn play-btn-frontend" onClick={() => setScreen('backend-game')}>
             <span className="play-btn-title">Enter Castle</span>
           </button>
-          <a className="multiplayer-link" onClick={() => setScreen('frontend-game')}>
-            Enter Castle (frontend mode only)
-          </a>
           <button className="play-btn play-btn-frontend" onClick={() => setScreen('overworld')} style={{ marginTop: '8px' }}>
             <span className="play-btn-title">View Castle</span>
           </button>
@@ -184,10 +182,14 @@ function App() {
 
 */}
         </div>
+	<p>Dialog by Claude, based on "Names and Faces" info</p>
+	<p>NPCs are whoever had an icon on the Poker site last week</p>
+	<p>If you would like "your" NPC to be added/removed/changed <br/>just ask Nick!</p>
+
 
         <p className="controls-hint">
-          WASD / arrow keys · tap adjacent tile · or use the d-pad on mobile
-        </p>
+	The plan for this game was going to be so cool. A multi-player shared online sequel to the excellent Murder Mystery. You walk around the castle, talk to Fellows and Mentors, and build up points in valuable skills like "mech interp" and "decision theory" then, in real time, an un-aligned AI invades the castle and players must work together to fight it off.<br/> But instead, I switched my time to more  "real" alignment projects such as <a href="https://github.com/sfgeekgit/agentspace" target="_blank">agentspace</a>. Still occasionaly hacking on this a bit for fun...
+	</p>
       </main>
     </div>
   );
