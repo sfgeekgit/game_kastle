@@ -91,7 +91,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Haunted Castle</h1>
+        <h1>Haunted Hostačov</h1>
 	<h3> Murder Mystery Part 2!</h3>
 	<h4>Never mind... </h4><h4>Nick is not going to finish this before the seminar ends :( </h4>
 
@@ -109,7 +109,7 @@ function App() {
           </div>
         ) : auth?.discordLoginAvailable ? (
           <div style={{ marginTop: 8 }}>
-            <a href={`${import.meta.env.BASE_URL}api/auth/discord`} style={{ display: 'inline-block', backgroundColor: '#5865F2', color: '#fff', padding: '10px 20px', borderRadius: 6, textDecoration: 'none', fontWeight: 'bold', fontFamily: 'inherit' }}>
+            <a href={`${import.meta.env.BASE_URL}api/auth/discord`} style={{ display: 'inline-block', backgroundColor: '#3a3f8a', color: '#c8c0b0', padding: '9px 22px', border: '1px solid #5865F2', borderRadius: 3, textDecoration: 'none', fontWeight: 'bold', fontFamily: "'Cinzel', Georgia, serif", letterSpacing: '0.05em', fontSize: '0.85rem' }}>
               Login with Discord
             </a>
             {auth.discordLoginRequired && (

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { LoginRequired } from './LoginRequired.js';
 import { applyMove, directionDelta } from '@game_kastle/shared';
 import type { AreaState, Direction, Entity, MapDef, MoveResult } from '@game_kastle/shared';
 import { api } from '../api.js';
@@ -167,6 +168,7 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
   const [mapName, setMapName] = useState<string>('Town Square');
   const [message, setMessage] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [loginRequired, setLoginRequired] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const movingRef = useRef(false);
   const lastMoveTimeRef = useRef(0);
@@ -240,7 +242,11 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
       } catch (err) {
         if (!cancelled) {
           const errorMsg = err instanceof Error ? err.message : 'Failed to load area.';
-          setMessage(errorMsg);
+          if (errorMsg === 'Login required') {
+            setLoginRequired(true);
+          } else {
+            setMessage(errorMsg);
+          }
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -423,6 +429,7 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
   const facingOffset = useMemo(() => getFacingOffset(tileSize), [tileSize]);
   const facingOffsetStacked = useMemo(() => getFacingOffset(Math.round(tileSize * 0.75)), [tileSize]);
 
+  if (loginRequired) return <LoginRequired onBack={onExit} />;
   if (loading) return <div className="game-loading">Loading area...</div>;
   if (!areaState || !player) return <div className="game-loading">{message || 'Error loading area.'}</div>;
 
