@@ -8,14 +8,13 @@ fallbacks:
 
 dialogue:
   name: "I'm Nick. I make video games. I'm also apparently in one now, which is — fine. This is fine."
-  hi: "Oh hey. Yeah I'm — I live here I guess. In the FIREPLACE room. Ask me about GAMES or why everyone here is so much smarter than me."
+  hi: "Oh hey. Yeah I'm — I live here I guess. Ask me about GAMES or why everyone here is so much smarter than me."
   look: "Enthusiastic and kind. Clearly the least technically qualified person at an AI safety seminar, which is saying something. He made a game about it though, so that counts for something."
   games: "I make video games. Specifically one about ai safety — thechoicebeforeus.com. And apparently now this one. I keep accidentally making ai safety games while trying to play video games."
   choice: "thechoicebeforeus.com — my game about ai safety. I made it because I wanted to understand the problem. Reader, I did not fully understand the problem."
   alignment: "Ask literally anyone else here. Linda in the Study Lab knows more about alignment than I'll ever know. Kaarel, Jonas, any of them. I make GAMES."
-  smart: "Everyone here is astonishingly smart. Mikhail can name every AI model ever made. Linda reverse-engineers neural networks. I hide in this room and make video games so hard that I accidentally make video games."
+  smart: "Everyone here is astonishingly smart. Mikhail can name every AI model ever made. Linda reverse-engineers neural networks. I hide in this room and make video games so hard that I accidentally make video games. Sometimes META games"
   hiding: "Not hiding exactly. More like... being very present in a small room with a fire. Strategically present."
-  fireplace: "It's a good room. Warm. Nice chairs. Nico and Okko are good company. Nobody expects you to explain mesa-optimization by the fire."
   meta: "Yes, I'm aware of the inherent weirdness of talking to me inside a game I made. I have no good response to this."
   mechinterp: "Ha. No. Linda is in the Study Lab. She's your person. I'm going back to my game."
   bye: "Good luck out there. Don't ask me about MECHINTERP."

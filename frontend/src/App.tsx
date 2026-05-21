@@ -91,7 +91,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Say "Hello"</h1>
+        <h1>Haunted Castle</h1>
 	<h3> </h3>
 	<p>Walk around. The gold squares are doors.</p>
 	<p>Say "hi" and "bye" and "job" and "look" or ask follow up questions.</p>
@@ -136,7 +136,10 @@ function App() {
           <button className="play-btn play-btn-frontend" onClick={() => setScreen('overworld')} style={{ marginTop: '8px' }}>
             <span className="play-btn-title">View Castle</span>
           </button>
-          <button className="play-btn play-btn-frontend" onClick={() => setScreen('combat-pixi')} style={{ marginTop: '12px', backgroundColor: '#6b21a8' }}>
+{/*
+
+
+<button className="play-btn play-btn-frontend" onClick={() => setScreen('combat-pixi')} style={{ marginTop: '12px', backgroundColor: '#6b21a8' }}>
             <span className="play-btn-title">Combat (Pixi)</span>
           </button>
           <button className="play-btn play-btn-frontend" onClick={() =>
@@ -177,6 +180,9 @@ function App() {
               <span className="play-btn-title" style={{ fontSize: 13 }}>PVP Combat Player 2</span>
             </button>
           </div>
+
+
+*/}
         </div>
 
         <p className="controls-hint">

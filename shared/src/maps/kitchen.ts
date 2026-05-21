@@ -21,6 +21,9 @@ export const kitchen: MapDef = {
   height: 13,
   spawnX: 9,
   spawnY: 2,
+  npcs: [
+    { id: 'gurkenglas', name: 'Gurkenglas', x: 8, y: 8, dialogueFile: 'gurkenglas' },
+  ],
   tiles: [
     // row 0 — north wall
     [w, w, w, w, w, w, w, w, w, eSL, w, w, w, w, w, w, w, w],

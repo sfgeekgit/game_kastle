@@ -35,7 +35,9 @@ router.get('/map', async (req: Request, res: Response) => {
   }
 });
 
-const IDLE_TIMEOUT_MS = 15 * 60 * 1000;
+const BACKUP_IDLE_MS = 30 * 60 * 1000;       // write to DB after 30 min idle (if dirty)
+const EVICT_IDLE_MS  = 2 * 60 * 60 * 1000;  // eligible for eviction after 2 hours idle
+const EVICT_MAX_PCS  = 3;                    // evict oldest idle players until room has ≤ this many
 
 /**
  * POST /api/area/join
@@ -88,35 +90,45 @@ router.post('/join', async (req: Request, res: Response) => {
       ? `avatar_${userRecord.discord_id}.png`
       : undefined;
 
-    // Read state before lock to find idle players and any ghost entity for this user.
     const currentState = readAreaState(areaId);
     const allEntities = currentState?.entities ?? [];
-
-    const idlePlayers = allEntities.filter(
-      (e) => e.type === 'player' && e.id !== String(userId) &&
-              (!e.lastMoveAt || e.lastMoveAt < now - IDLE_TIMEOUT_MS),
-    );
+    const otherPlayers = allEntities.filter((e) => e.type === 'player' && e.id !== String(userId));
     const ghostEntity = allEntities.find((e) => e.id === String(userId) && e.type === 'player') ?? null;
 
-    const checkpoints = idlePlayers.map((e) => checkpointPlayer(Number(e.id), areaId, e.x, e.y, e.lastMoveAt ?? now));
+    const toBackup = otherPlayers.filter(
+      (e) => e.dirty && (!e.lastMoveAt || e.lastMoveAt < now - BACKUP_IDLE_MS),
+    );
+
+    const excessCount = otherPlayers.length + 1 - EVICT_MAX_PCS;
+    const toEvict = excessCount > 0
+      ? otherPlayers
+          .filter((e) => !e.lastMoveAt || e.lastMoveAt < now - EVICT_IDLE_MS)
+          .sort((a, b) => (a.lastMoveAt ?? 0) - (b.lastMoveAt ?? 0))
+          .slice(0, excessCount)
+      : [];
+
+    const backupIds = new Set(toBackup.map((e) => e.id));
+    const checkpoints = toBackup.map((e) => checkpointPlayer(Number(e.id), areaId, e.x, e.y, e.lastMoveAt ?? now));
     if (ghostEntity && !isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, ghostEntity.x, ghostEntity.y, ghostEntity.lastMoveAt ?? now));
     else if (isRoomTransition) checkpoints.push(checkpointPlayer(userId, areaId, entrySpawn?.x ?? room.spawnX, entrySpawn?.y ?? room.spawnY, now));
     await Promise.all(checkpoints);
 
-    // Determine spawn position.
     const spawnX = (ghostEntity && !isRoomTransition) ? ghostEntity.x : (dbSpawnOverride?.x ?? entrySpawn?.x ?? room.spawnX);
     const spawnY = (ghostEntity && !isRoomTransition) ? ghostEntity.y : (dbSpawnOverride?.y ?? entrySpawn?.y ?? room.spawnY);
 
-    const idleIds = new Set(idlePlayers.map((e) => e.id));
+    const evictIds = new Set(toEvict.map((e) => e.id));
     await withAreaLock(areaId, (state) => {
-      state.entities = state.entities.filter((e) => !(e.type === 'player' && idleIds.has(e.id)));
+      for (const e of state.entities) {
+        if (backupIds.has(e.id)) e.dirty = false;
+      }
+      state.entities = state.entities.filter((e) => !(e.type === 'player' && evictIds.has(e.id)));
       const existing = state.entities.find((e) => e.id === String(userId) && e.type === 'player');
       if (existing) {
         existing.lastMoveAt = now;
         existing.image = avatarImage;
         if (isRoomTransition) { existing.x = spawnX; existing.y = spawnY; existing.facing = entrySpawn?.facing ?? 'south'; }
       } else {
-        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now, image: avatarImage });
+        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now, dirty: false, image: avatarImage });
       }
     });
 
@@ -172,6 +184,7 @@ router.post('/move', async (req: Request, res: Response) => {
         entity.y = moveResult.newY;
         entity.facing = moveResult.newFacing;
         entity.lastMoveAt = Date.now();
+        entity.dirty = true;
       }
     });
 
