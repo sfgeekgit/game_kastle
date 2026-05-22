@@ -111,6 +111,10 @@ export async function updatePlayer(userId: number, points: number, level: number
   ]);
 }
 
+export async function updateDisplayName(userId: number, name: string): Promise<void> {
+  await query<ResultSetHeader>('UPDATE players SET display_name = ? WHERE user_id = ?', [name, userId]);
+}
+
 export async function checkpointPlayer(
   userId: number,
   areaId: number,

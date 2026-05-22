@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 import {
   getUserByEmail, getUserById,
   getUserByDiscordId, createDiscordUser, updateDiscordAvatar,
-  createPlayer,
+  createPlayer, updateDisplayName,
 } from '../db/helpers.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -88,10 +88,13 @@ if (DISCORD_CLIENT_ID && DISCORD_CLIENT_SECRET && DISCORD_CALLBACK_URL) {
             }
           }
 
+          const displayName = (profile as unknown as { global_name?: string }).global_name || profile.username;
+
           // Find existing user by Discord ID
           let user = await getUserByDiscordId(profile.id);
           if (user) {
             await updateDiscordAvatar(user.user_id, profile.avatar);
+            await updateDisplayName(user.user_id, displayName);
             await downloadDiscordAvatar(profile.id, profile.avatar);
             return done(null, user);
           }
@@ -114,6 +117,7 @@ if (DISCORD_CLIENT_ID && DISCORD_CLIENT_SECRET && DISCORD_CALLBACK_URL) {
           }
           if (userId === null) throw new Error('Failed to generate unique user ID');
 
+          await updateDisplayName(userId, displayName);
           await downloadDiscordAvatar(profile.id, profile.avatar);
           user = await getUserByDiscordId(profile.id);
           return done(null, user!);

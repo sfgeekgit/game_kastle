@@ -8,7 +8,7 @@ fallbacks:
 
 dialogue:
   name: "I'm Kabir. I want to organize the research needed to solve ALIGNMENT."
-  hi: "Hey. I'm here to learn about the alignment problem and figure out how to organize the work needed to solve it. Happy to do GYM together too. Ask me about TRUTH or the time I used a STONE as a pillow."
+  hi: "Hey. I'm here to learn about the alignment problem and figure out how to organize the work needed to solve it. Happy to do GYM together too. Ask me about TRUTH or the time I used a STONE as a pillow. You can also say HI or NAME to everyone here."
   look: "Focused, earnest, and deeply kind. Startlingly intelligent in a way that's immediately put to work on real problems. You get the sense they will actually follow through on organizing the research."
   alignment: "The alignment problem is real and tractable — but the research needs to be organized better. Who's working on what? What's the critical path? I want to understand that map."
   organize: "Someone has to think about the research coordination problem. Not just individual projects but the whole landscape. What's missing? What's duplicated? What needs to happen next?"

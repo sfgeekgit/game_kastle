@@ -7,6 +7,16 @@ const eC  = { type: 'exit' as const, exitTarget: 'courtyard' };
 const eHG = { type: 'exit' as const, exitTarget: 'hall_greenroom' };
 const eSt = { type: 'exit' as const, exitTarget: 'stairs1' };
 const eFP = { type: 'exit' as const, exitTarget: 'fireplace' };
+const kW   = { type: 'floor' as const, variant: 'key_w' };
+const kA   = { type: 'floor' as const, variant: 'key_a' };
+const kS   = { type: 'floor' as const, variant: 'key_s' };
+const kD   = { type: 'floor' as const, variant: 'key_d' };
+const kSL  = { type: 'floor' as const, variant: 'key_space_l' };
+const kSR  = { type: 'floor' as const, variant: 'key_space_r' };
+const aNc  = { type: 'floor' as const, variant: 'arrow_n_courtyard' };
+const aNg  = { type: 'floor' as const, variant: 'arrow_n_greenroom' };
+const aWs  = { type: 'floor' as const, variant: 'arrow_w_stairs' };
+const aEf  = { type: 'floor' as const, variant: 'arrow_e_fireplace' };
 
 const ir = (): typeof f[] => [w, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, w];
 
@@ -22,20 +32,24 @@ export const lobby: MapDef = {
   width: 18,
   height: 13,
   spawnX: 9,
-  spawnY: 6,
+  spawnY: 11,
   tiles: [
     // row 0 — north wall
     [w, w, w, w, w, eC, w, w, w, w, w, w, w, w, eHG, w, w, w],
-    ir(),
+    // row 1 — arrows pointing at north exits
+    [w, f, f, f, f, aNc, f, f, f, f, f, f, f, f, aNg, f, f, w],
     // row 2 — reception desk (cols 7-10)
-    [w, f, f, f, f, f, f, w, w, w, w, f, f, f, f, f, f, w],
+    [w, f, f, f, f, f, f, f, kSL, kSR, w, f, f, f, f, f, f, w],
     // rows 3-5 — couch against east wall (col 16)
     [w, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, cE, w],
     [w, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, cE, w],
     [w, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, cE, w],
     // row 6 — side exits
-    [eSt, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, eFP],
-    ir(), ir(),
+    [eSt, aWs, f, f, f, f, f, f, f, f, f, f, f, f, f, f, aEf, eFP],
+    // row 7 — W key (col 5)
+    [w, f, f, f, f, kW, f, f, f, f, f, f, f, f, f, f, f, w],
+    // row 8 — A S D keys (cols 4-6)
+    [w, f, f, f, kA, kS, kD, f, f, f, f, f, f, f, f, f, f, w],
     // row 9 — seating (cols 3-4 and 13-14)
     [w, f, f, w, w, f, f, f, f, f, f, f, f, w, w, f, f, w],
     ir(), ir(),
@@ -43,8 +57,8 @@ export const lobby: MapDef = {
     [w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w],
   ],
   npcs: [
-    { id: 'phil',    name: 'Phil',    x: 3,  y: 3, dialogueFile: 'phil' },
-    { id: 'adriana', name: 'Adriana', x: 14, y: 3, dialogueFile: 'adriana' },
-    { id: 'ryan',    name: 'Ryan',    x: 9,  y: 8, dialogueFile: 'ryan' },
+    { id: 'say_hello', name: 'Say Hello', x: 9,  y: 4, dialogueFile: 'say_hello' },
+    { id: 'phil',      name: 'Phil',      x: 3,  y: 3, dialogueFile: 'phil' },
+    { id: 'adriana',   name: 'Adriana',   x: 14, y: 3, dialogueFile: 'adriana' },
   ],
 };

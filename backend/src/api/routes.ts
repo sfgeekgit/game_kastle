@@ -5,6 +5,7 @@ import authRouter from '../auth/routes.js';
 import areaRouter from './area.js';
 import npcRouter from './npcs.js';
 import combatRouter from './combat.js';
+import adminRouter from './admin.js';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/text', textRouter);
 router.use('/area', areaRouter);
 router.use('/npcs', npcRouter);
 router.use('/combat', combatRouter);
+router.use('/admin', adminRouter);
 
 export default router;

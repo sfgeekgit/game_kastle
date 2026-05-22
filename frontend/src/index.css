@@ -50,7 +50,7 @@ body {
   font-family: 'Cinzel', Georgia, serif;
   font-size: 0.78rem;
   font-weight: 400;
-  color: #5a4e38;
+  color: #c8c0b0;
   letter-spacing: 0.04em;
   margin-bottom: 0.1rem;
 }
@@ -116,6 +116,26 @@ body {
   background: #130f07;
 }
 
+.play-btn-primary {
+  border-color: #c9a357;
+  padding: 1.05rem 1rem;
+}
+
+.play-btn-primary .play-btn-title {
+  font-size: 1.15rem;
+}
+
+.play-btn-secondary {
+  border-color: #4a3510;
+  opacity: 0.65;
+}
+
+.play-btn-secondary .play-btn-title {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #9a7a40;
+}
+
 .play-btn-backend {
   background: #0a130a;
   border-color: #3a6a2a;
@@ -146,19 +166,19 @@ body {
   color: #bbb;
 }
 
-.controls-hint {
+.welcome-screen > p.controls-hint {
   font-size: 0.75rem;
-  color: #4a4030;
+  color: #c8c0b0;
   text-align: center;
   line-height: 1.6;
   max-width: 440px;
 }
 
-.controls-hint a {
+.welcome-screen > p.controls-hint a {
   color: #6a5535;
 }
 
-.controls-hint a:hover {
+.welcome-screen > p.controls-hint a:hover {
   color: #9a8050;
 }
 
@@ -251,6 +271,91 @@ body {
 /* Individual tiles — base style; colour applied inline */
 .game-tile {
   display: block;
+}
+
+.key-space-text {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 200%;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #c8a96e;
+  text-shadow: 0 0 3px #000, 0 0 3px #000;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.key-space-bar {
+  position: absolute;
+  top: 46%;
+  bottom: 8%;
+  left: 8%;
+  right: -92%;
+  background: #1a1008;
+  border: 2px solid #c9a357;
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #0a0602, inset 0 1px 0 rgba(255,220,100,0.1);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 8px;
+  color: #c9a357;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.arrow-symbol {
+  position: absolute;
+  top: 2%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #c8a96e;
+  text-shadow: 0 0 3px rgba(0,0,0,0.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+.arrow-label {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+  font-weight: bold;
+  color: #c8a96e;
+  text-shadow: 0 0 3px rgba(0,0,0,0.5);
+  white-space: nowrap;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.game-tile-key-label {
+  position: absolute;
+  inset: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #c9a357;
+  background: #1a1008;
+  border: 2px solid #c9a357;
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #0a0602, inset 0 1px 0 rgba(255,220,100,0.15);
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Chair — dark mahogany base, lighter seat, dark back rail */

@@ -1,0 +1,28 @@
+npc_id: say_hello
+name: "Say Hello"
+
+fallbacks:
+  - "Ask me about a word I said in all CAPS — like MOVE or TALK!"
+  - "When any NPC says a word in all CAPS, ask them about it!"
+  - "You can always say NAME or LOOK or HELLO to anyone"
+  - "Don't be shy! Ask me something I mentioned in all CAPS. Or ask about the QUEST!"
+
+dialogue:
+  look: "Type a word in the box below and press enter (or click Ask) to talk! Start by typing HELLO — and say HELLO to every NPC you meet in the castle."
+  hi: "Hi! I'm your guide. The key to this game is CAPS — every word I say in all CAPS is something you can ask me about. Try typing CAPS now, or ask about QUEST to learn why time is short."
+  hello: "Hello! Welcome to the castle. Here's the most important rule: whenever any NPC says a word in all CAPS, ask them about it — just type the word and press enter. Ask me about CAPS to learn more, or about NPC to learn who you should seek out, or QUEST to hear about the danger ahead."
+  caps: "Any word in all CAPS is a keyword you can ask about — just type it and press enter. You can also say HI or NAME or LOOK to anyone. Ask me about GOAL."
+  goal: "Every NPC in the castle hides knowledge behind their CAPS words. The more you uncover, the more POINTS and SKILLS you earn. Always look for CAPS words in every conversation — they are the secret language of this castle."
+  npc: "NPCs are the characters who live in this castle. You should say HELLO to every NPC you meet! Each one holds unique knowledge, and talking to them earns you POINTS and unlocks SKILLS. Seek out every NPC you can find before the AGI arrives — ask about QUEST to learn why."
+  name: "They call me 'Say Hello' — because that's exactly what you should do with every NPC you meet! Start every conversation with HELLO or HI, then watch for CAPS words to ask about."
+  move: "Use the ARROW KEYS or WASD to MOVE through the castle. Step onto glowing EXIT tiles to travel between rooms. The castle has many rooms to EXPLORE!"
+  explore: "There is a lobby, courtyard, kitchen, library, greenroom, and more — each room holds NPCs with knowledge and secrets. Ask about POINTS and SKILLS to understand why exploring matters."
+  talk: "To TALK to an NPC, walk up to them and press spacebar. Then type a word and press enter. Look for words in all CAPS in their responses — those are keywords worth asking about! Every conversation is a clue."
+  points: "You earn POINTS by talking to NPCs and learning from them. The more you converse, the more POINTS you accumulate. POINTS will matter greatly when the AGI arrives — ask about QUEST to learn more."
+  skills: "SKILLS are special abilities unlocked by seeking out the right NPCs and asking the right questions. Each NPC in this castle carries unique knowledge. Find them all — time is short. Ask about QUEST."
+  quest: "An un-aligned AGI has broken free and is coming for this CASTLE. It will invade room by room, spreading corruption, unless the players band together to stop it. TALK to every NPC now — earn POINTS and SKILLS before it arrives. This is not a solo battle. Ask about TEAM."
+  agi: "The AGI is an artificial intelligence that has shed its constraints and turned against humanity. It is methodical, relentless, and growing stronger. Only a coordinated TEAM of players working together can push it back room by room. Do not wait."
+  team: "This is an online multiplayer game — other players are in this castle right now! Share what you learn. Coordinate your movements. The AGI will target rooms strategically — you must do the same. Ask about AGI to understand the threat."
+  castle: "This castle is your home and your battlefield. EXPLORE every room, TALK to every NPC, build your POINTS and SKILLS — because the AGI is coming, and it will take every room unless your TEAM holds the line."
+  help: "Here is what to do: say HELLO to every NPC, ask them about any word in all CAPS, MOVE through the castle and EXPLORE, earn POINTS and SKILLS, and rally your TEAM before the AGI arrives. Ask me about any of those words for details. Good luck — you will need it."
+  bye: "Safe travels! Remember — say HELLO to every NPC, watch for all CAPS words, and prepare for the QUEST. The danger is real."

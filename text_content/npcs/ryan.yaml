@@ -8,7 +8,7 @@ fallbacks:
 
 dialogue:
   name: "I'm Ryan. Staff here — coaching, support, whatever people need."
-  hi: "Hey! How are you doing? Really — how are you FEELING? I ask because I actually want to know. I'm also told I'm a JUKEBOX if you need one."
+  hi: "Hey! How are you doing? Really — how are you FEELING? I ask because I actually want to know. I'm also told I'm a JUKEBOX if you need one. You can also say HI or NAME to everyone here."
   look: "Warm, present, genuinely attentive. Remarkably intelligent and kind in that rare way where the kindness comes first. You feel immediately heard just standing here."
   feeling: "Good. Let's stay with that. What's underneath it?"
   feelings: "Feelings are data. Most people in a place like this are very good at thinking and less practiced at feeling. Both matter."

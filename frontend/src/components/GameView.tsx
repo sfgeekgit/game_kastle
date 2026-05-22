@@ -63,6 +63,12 @@ const TILE_COLORS: Record<string, string> = {
   sink:     '#a8bfc5',
   shelf:    '#7a5c28',
   desk:     '#5a3a18',
+  key_w:       '#8b6640',
+  key_a:       '#8b6640',
+  key_s:       '#8b6640',
+  key_d:       '#8b6640',
+  key_space_l: '#8b6640',
+  key_space_r: '#8b6640',
   lamp:     '#d4a820',
   bar:      '#2a1206',
   glass:    '#b0cdd8',
@@ -501,13 +507,30 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
               style={{
                 width: tileSize,
                 height: tileSize,
-                backgroundColor: TILE_COLORS[variant ?? type] ?? '#333',
+                backgroundColor: TILE_COLORS[variant ?? type] ?? (variant?.startsWith('arrow_') ? '#8b6640' : '#333'),
                 cursor: 'pointer',
                 boxSizing: 'border-box',
                 border: type === 'exit' ? '2px solid #fff700' : undefined,
+                position: 'relative',
               }}
               onClick={() => handleTileClick(camX + col, camY + row)}
-            />
+            >
+              {variant?.startsWith('key_') && !variant.startsWith('key_space') && (
+                <span className="game-tile-key-label">{variant[4].toUpperCase()}</span>
+              )}
+              {variant === 'key_space_l' && (
+                <>
+                  <span className="key-space-text">talk to npcs</span>
+                  <span className="key-space-bar">spacebar</span>
+                </>
+              )}
+              {variant?.startsWith('arrow_') && (() => {
+                const [, dir, key] = variant.split('_');
+                const symbol = ({ n: '↑', s: '↓', e: '→', w: '←' } as Record<string, string>)[dir] ?? '';
+                const label = ({ courtyard: 'Courtyard', greenroom: 'Green Room', stairs: 'Stairs', fireplace: 'Fireplace' } as Record<string, string>)[key] ?? key;
+                return <><span className="arrow-symbol">{symbol}</span><span className="arrow-label">{label}</span></>;
+              })()}
+            </div>
           ))}
         </div>
 
@@ -578,6 +601,25 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
                     whiteSpace: 'nowrap',
                     fontSize: 10,
                     color: '#c8a96e',
+                    fontWeight: 'bold',
+                    textShadow: '0 0 3px #000, 0 0 3px #000',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {entity.name}
+                </div>
+              )}
+              {/* Player name label */}
+              {!isNpc && entity.name && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: -15,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    whiteSpace: 'nowrap',
+                    fontSize: 9,
+                    color: '#a8d8f0',
                     fontWeight: 'bold',
                     textShadow: '0 0 3px #000, 0 0 3px #000',
                     pointerEvents: 'none',

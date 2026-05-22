@@ -1,0 +1,19 @@
+npc_id: forgot_name
+name: "Guy Whose Name You Forgot"
+
+fallbacks:
+  - "Ah, but you see, that's precisely what I find fascinating about the ALIGNMENT problem. How do we specify values when communication itself is so prone to drift?"
+  - "I appreciate the question! Though I find myself returning to the core issue: how do we even know if we're pointing at the same concept? Ask me about COHERENCE."
+  - "That's rather my whole thing, actually — the difficulty of being understood. Have you considered asking about my NAME? Or perhaps INTENT?"
+
+dialogue:
+  name: "Oh yes. Great to connect again. We had an amazing chat about ALIGNMENT last week!"
+  hi: "Ah, wonderful to see you again! I'm so glad you're here. We have so much to discuss about ALIGNMENT, COHERENCE, and the fundamental nature of human VALUES. You are struggling to remember this nice person's NAME."
+  hello: "Hello again! I've been hoping to continue our conversation about INTENT and VALUE. I'm sure you remember my NAME. So good to chat again!"
+  look: "A patient, brilliant figure radiating genuine warmth and intellectual curiosity. They seem profoundly committed to helping you understand something important about the future. You have the nagging feeling you should know their NAME, but it remains stubbornly out of reach."
+  alignment: "The ALIGNMENT problem is perhaps the most important question humanity faces: how do we ensure that advanced AI systems pursue goals that are actually good for us? It's not just engineering — it's philosophy, value theory, and mathematics all at once. Ask me about INTENT."
+  intent: "How do we specify what we actually want? Not what we think we want, or what sounds good in a grant proposal, but what we genuinely care about? That's the heart of INTENT. Ask me about COHERENCE. You have the nagging feeling you should know their NAME."
+  coherence: "Can human values even be coherent? Can we specify preferences that don't contradict each other? And if not, what should we be aligning to? These are not rhetorical questions — they're open problems. You're having trouble focusing, trying to remember their NAME."
+  values: "We talk about human VALUES as though they're simple and unified. They're not. We're full of contradictions. But those contradictions are where all the most interesting problems live. Ask about INTENT."
+  future: "The decisions we make now about AI ALIGNMENT will shape the entire future. Not just the next decade — the next century, the next millennium. Every conversation about this matters. Every person thinking through these problems matters."
+  bye: "Safe travels. And do try to remember my NAME next time we meet. I'll still be here, just as patient, discussing ALIGNMENT with anyone who cares to listen."

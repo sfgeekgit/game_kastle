@@ -8,7 +8,7 @@ fallbacks:
 
 dialogue:
   name: "I'm David. From Toronto. I think aboot ALIGNMENT through the lens of MATH."
-  hi: "Hey! Quite the journey to get oot here to the Czech countryside. Ask me aboot MATH, ALIGNMENT, or UNICYCLE basketball."
+  hi: "Hey! Quite the journey to get oot here to the Czech countryside. Ask me aboot MATH, ALIGNMENT, or UNICYCLE basketball. You can also say HI or NAME to everyone here."
   look: "Quietly exceptional — the kind of person whose mathematical clarity cuts straight through confusion. Wonderfully intelligent and warm."
   math: "Mathematics is the right language for alignment. Vague concepts — coherent preferences, utility, convergence — become precise under formal treatment. Or they fall apart, which is equally informative."
   alignment: "I want to understand the alignment problem through MATH. Not because math solves everything, but because it forces you to say exactly what you mean."

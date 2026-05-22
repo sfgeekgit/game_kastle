@@ -57,8 +57,10 @@ router.post('/join', async (req: Request, res: Response) => {
     let dbSpawnOverride: { x: number; y: number } | null = null;
     let sourceMapId: string | null = null;
 
+    let playerDisplayName: string | undefined;
     if (!isRoomTransition) {
       const playerRecord = await getPlayerById(userId);
+      playerDisplayName = playerRecord?.display_name ?? undefined;
       if (playerRecord?.last_area_id != null && playerRecord.last_x != null && playerRecord.last_y != null) {
         const savedMapId = await findMapIdForAreaId(playerRecord.last_area_id);
         if (savedMapId) {
@@ -68,6 +70,7 @@ router.post('/join', async (req: Request, res: Response) => {
       }
     } else {
       const playerRecord = await getPlayerById(userId);
+      playerDisplayName = playerRecord?.display_name ?? undefined;
       if (playerRecord?.last_area_id != null) {
         sourceMapId = await findMapIdForAreaId(playerRecord.last_area_id);
       }
@@ -126,9 +129,10 @@ router.post('/join', async (req: Request, res: Response) => {
       if (existing) {
         existing.lastMoveAt = now;
         existing.image = avatarImage;
+        existing.name = playerDisplayName;
         if (isRoomTransition) { existing.x = spawnX; existing.y = spawnY; existing.facing = entrySpawn?.facing ?? 'south'; }
       } else {
-        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now, dirty: false, image: avatarImage });
+        state.entities.push({ id: String(userId), type: 'player', x: spawnX, y: spawnY, facing: entrySpawn?.facing ?? 'south', lastMoveAt: now, dirty: false, image: avatarImage, name: playerDisplayName });
       }
     });
 

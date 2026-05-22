@@ -92,7 +92,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Haunted Hostačov</h1>
-	<h3> Murder Mystery Part 2!</h3>
+	<h3> Mürdeř Mystěry Pärt 2</h3>
 	<h4>Never mind... </h4><h4>Nick is not going to finish this before the seminar ends :( </h4>
 
 
@@ -120,7 +120,7 @@ function App() {
             )}
           </div>
         ) : null}
-	Discord login required <br/>You <b>must</b> be part of the AFFINE discord to play.
+	<span style={{ color: '#9a8060' }}>Discord login required <br/>You <b>must</b> be part of the AFFINE discord to play.</span>
       </header>
 
       <main className="welcome-screen">
@@ -128,11 +128,11 @@ function App() {
         </p>
 
         <div className="play-buttons">
-          <button className="play-btn play-btn-frontend" onClick={() => setScreen('backend-game')}>
-            <span className="play-btn-title">Enter Castle</span>
+          <button className="play-btn play-btn-frontend play-btn-primary" onClick={() => setScreen('backend-game')}>
+            <span className="play-btn-title">Ěnteř Cästle</span>
           </button>
-          <button className="play-btn play-btn-frontend" onClick={() => setScreen('overworld')} style={{ marginTop: '8px' }}>
-            <span className="play-btn-title">View Castle</span>
+          <button className="play-btn play-btn-frontend play-btn-secondary" onClick={() => setScreen('overworld')} style={{ marginTop: '8px' }}>
+            <span className="play-btn-title">Víew Cästle</span>
           </button>
 {/*
 

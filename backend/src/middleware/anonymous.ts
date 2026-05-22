@@ -30,8 +30,8 @@ export async function ensureAnonymousUser(
   res: Response,
   next: NextFunction,
 ): Promise<void> {
-  // Auth routes manage their own sessions — never block or auto-create for them
-  if (req.path.startsWith('/auth/')) {
+  // Auth and admin routes manage their own auth — never block or auto-create for them
+  if (req.path.startsWith('/auth/') || req.path.startsWith('/admin/')) {
     next();
     return;
   }

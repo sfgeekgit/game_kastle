@@ -56,7 +56,9 @@ export const courtyard: MapDef = {
   ],
   npcs: [
     { id: 'kaarel', name: 'Kaarel', x: 5,  y: 5,  dialogueFile: 'kaarel' },
+    { id: 'ryan',   name: 'Ryan',   x: 9,  y: 7,  dialogueFile: 'ryan' },
     { id: 'sean',   name: 'Sean',   x: 4,  y: 14, dialogueFile: 'sean' },
     { id: 'victor', name: 'Victor', x: 14, y: 16, dialogueFile: 'victor' },
+    { id: 'forgot_name', name: 'Guy Whose Name You Forgot', x: 12, y: 10, dialogueFile: 'forgot_name' },
   ],
 };
