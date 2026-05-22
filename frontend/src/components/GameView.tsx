@@ -6,6 +6,7 @@ import { api } from '../api.js';
 import { DPad } from './DPad.js';
 import { DialogueWindow } from './DialogueWindow.js';
 import { OverworldSidebar } from './OverworldSidebar.js'; // room layout: shared/src/overworldLayout.ts
+import { SkillsPanel } from './SkillsPanel.js';
 
 interface GameViewProps {
   mode: 'frontend' | 'backend';
@@ -180,6 +181,7 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
   const lastMoveTimeRef = useRef(0);
   const lastStepSoundRef = useRef(0);
   const [dialogueNpc, setDialogueNpc] = useState<Entity | null>(null);
+  const [skills, setSkills] = useState<Record<string, number>>({});
 
   // Build a local area state for frontend mode from the map def
   const buildFrontendState = useCallback((map: MapDef): AreaState => ({
@@ -245,6 +247,10 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
           setCurrentMapId(res.state.mapId);
           setMapName(res.mapName ?? res.state.mapId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()));
         }
+        try {
+          const pd = await api.get<{ skills: Record<string, number> }>('/player');
+          if (!cancelled) setSkills(pd.skills ?? {});
+        } catch { /* non-critical */ }
       } catch (err) {
         if (!cancelled) {
           const errorMsg = err instanceof Error ? err.message : 'Failed to load area.';
@@ -646,11 +652,13 @@ export function GameView({ mode, onExit, myAvatarUrl }: GameViewProps) {
           npcId={dialogueNpc.dialogueFile ?? dialogueNpc.id}
           npcName={dialogueNpc.name ?? 'Unknown'}
           onClose={() => setDialogueNpc(null)}
-	  img={getEntityImageUrl(dialogueNpc)}
+          onSkillGained={(s) => setSkills(s)}
+          img={getEntityImageUrl(dialogueNpc)}
         />
       )}
 
       {isWideScreen && <OverworldSidebar currentMapId={areaState.mapId} />}
+      {isWideScreen && <SkillsPanel skills={skills} />}
     </div>
   );
 }

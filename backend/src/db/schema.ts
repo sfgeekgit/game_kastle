@@ -76,6 +76,23 @@ export async function initializeDatabase(): Promise<void> {
       (16, 'Mini Kitchen',             'fixed', 'mini_kitch')
   `);
 
+  await query(`
+    CREATE TABLE IF NOT EXISTS player_powerups (
+      user_id    INT NOT NULL,
+      powerup_id INT NOT NULL,
+      UNIQUE KEY uk_player_powerup (user_id, powerup_id)
+    )
+  `);
+
+  await query(`
+    CREATE TABLE IF NOT EXISTS player_skills (
+      user_id   INT NOT NULL,
+      skill_key VARCHAR(32) NOT NULL,
+      value     INT NOT NULL DEFAULT 0,
+      UNIQUE KEY uk_player_skill (user_id, skill_key)
+    )
+  `);
+
   // Combat catalog tables — structure only, no seed data.
   // wep_types, spell_types, and npcs are DB-owned catalog data populated via
   // mariadb-dump from an existing game instance. See docs/MIGRATION_INSTRUCTIONS.md.

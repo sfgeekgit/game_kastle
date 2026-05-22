@@ -128,6 +128,47 @@ export async function checkpointPlayer(
   );
 }
 
+// --- Powerup helpers ---
+
+export async function grantPlayerPowerup(userId: number, powerupId: number): Promise<boolean> {
+  const result = await query<ResultSetHeader>(
+    'INSERT IGNORE INTO player_powerups (user_id, powerup_id) VALUES (?, ?)',
+    [userId, powerupId],
+  );
+  return result.affectedRows > 0;
+}
+
+// --- Skill helpers ---
+
+interface SkillRow extends RowDataPacket {
+  skill_key: string;
+  value: number;
+}
+
+export async function getPlayerSkills(userId: number): Promise<Record<string, number>> {
+  const rows = await query<SkillRow[]>(
+    'SELECT skill_key, value FROM player_skills WHERE user_id = ?',
+    [userId],
+  );
+  const result: Record<string, number> = {};
+  for (const row of rows) result[row.skill_key] = row.value;
+  return result;
+}
+
+export async function setPlayerSkill(userId: number, skillKey: string, value: number): Promise<void> {
+  await query<ResultSetHeader>(
+    'INSERT INTO player_skills (user_id, skill_key, value) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE value = ?',
+    [userId, skillKey, value, value],
+  );
+}
+
+export async function incrementPlayerSkill(userId: number, skillKey: string): Promise<void> {
+  await query<ResultSetHeader>(
+    'INSERT INTO player_skills (user_id, skill_key, value) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE value = value + 1',
+    [userId, skillKey],
+  );
+}
+
 // --- NPC helpers ---
 
 /** Returns a map of npc_file -> image filename for the given npc_file keys. */

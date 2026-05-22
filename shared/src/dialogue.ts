@@ -40,6 +40,7 @@ function matchWord(word: string, keys: string[]): string | null {
 export interface ResolveKeywordResult {
   text: string;
   isFallback: boolean;
+  matchedKey?: string;
 }
 
 export function resolveKeyword(
@@ -53,7 +54,7 @@ export function resolveKeyword(
 
   for (const word of words) {
     const matched = matchWord(KEYWORD_ALIASES[word] ?? word, keys);
-    if (matched) return { text: npcData.dialogue[matched], isFallback: false };
+    if (matched) return { text: npcData.dialogue[matched], isFallback: false, matchedKey: matched };
   }
 
   // Use NPC-specific fallbacks first, then generic, then hardcoded default

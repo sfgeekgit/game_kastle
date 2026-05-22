@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+@keyframes skill-gain-float {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(-12px) scale(1.1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-70px) scale(0.9); }
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: #0d0b08;

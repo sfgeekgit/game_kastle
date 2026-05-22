@@ -8,3 +8,7 @@ export { OVERWORLD_LAYOUT, OVERWORLD_CANVAS_WIDTH, OVERWORLD_CANVAS_HEIGHT } fro
 export type { NpcDialogueData, DialogueFallbacks } from './dialogue.js';
 export { resolveKeyword } from './dialogue.js';
 export * from './combat/index.js';
+export { SKILL_DEFS } from './skills.js';
+export type { SkillKey } from './skills.js';
+export { POWERUPS } from './powerups.js';
+export type { PowerupDef } from './powerups.js';

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { resolveKeyword } from '@game_kastle/shared';
+import { resolveKeyword, POWERUPS } from '@game_kastle/shared';
 import type { NpcDialogueData, DialogueFallbacks } from '@game_kastle/shared';
 import { api } from '../api.js';
 
@@ -7,6 +7,7 @@ interface DialogueWindowProps {
   npcId: string;
   npcName: string;
   onClose: () => void;
+  onSkillGained?: (skills: Record<string, number>) => void;
   img?: string;
 }
 
@@ -16,13 +17,15 @@ interface DialogueEntry {
   isFallback?: boolean;
 }
 
-export function DialogueWindow({ npcId, npcName, onClose, img = undefined }: DialogueWindowProps) {
+export function DialogueWindow({ npcId, npcName, onClose, onSkillGained, img = undefined }: DialogueWindowProps) {
   const [npcData, setNpcData] = useState<NpcDialogueData | null>(null);
   const [fallbacks, setFallbacks] = useState<DialogueFallbacks | undefined>();
   const [entries, setEntries] = useState<DialogueEntry[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [floatLabel, setFloatLabel] = useState<string | null>(null);
+  const [floatKey, setFloatKey] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
 
@@ -87,12 +90,25 @@ export function DialogueWindow({ npcId, npcName, onClose, img = undefined }: Dia
       return;
     }
 
-    const { text, isFallback } = resolveKeyword(keyword, npcData, fallbacks);
+    const { text, isFallback, matchedKey } = resolveKeyword(keyword, npcData, fallbacks);
     setEntries((prev) => [
       ...prev,
       { speaker: 'player', text: keyword },
       { speaker: 'npc', text, isFallback },
     ]);
+
+    if (matchedKey && POWERUPS.some((p) => p.npcId === npcId && p.keyword === matchedKey)) {
+      api.post<{ gained: { label: string } | null; skills: Record<string, number> }>(
+        '/player/dialogue', { npcId, resolvedKey: matchedKey },
+      ).then((res) => {
+        if (res.gained) {
+          setFloatLabel(res.gained.label);
+          setFloatKey((k) => k + 1);
+          onSkillGained?.(res.skills);
+          setTimeout(() => setFloatLabel(null), 1900);
+        }
+      }).catch(() => {});
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -137,6 +153,7 @@ export function DialogueWindow({ npcId, npcName, onClose, img = undefined }: Dia
           flexDirection: 'column',
           color: '#e0d6c2',
           fontFamily: 'monospace',
+          position: 'relative',
         }}
       >
         {/* Header */}
@@ -202,6 +219,31 @@ export function DialogueWindow({ npcId, npcName, onClose, img = undefined }: Dia
             </div>
           ))}
         </div>
+
+        {/* Skill gain float bubble */}
+        {floatLabel && (
+          <div
+            key={floatKey}
+            style={{
+              position: 'absolute',
+              bottom: -16,
+              left: '50%',
+              backgroundColor: 'rgba(15, 15, 30, 0.95)',
+              border: '1px solid #c8a96e',
+              borderRadius: 6,
+              padding: '4px 14px',
+              color: '#7ec8e3',
+              fontWeight: 'bold',
+              fontSize: '0.95em',
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+              animation: 'skill-gain-float 1.8s ease-out forwards',
+              zIndex: 110,
+            }}
+          >
+            +1 {floatLabel}
+          </div>
+        )}
 
         {/* Input */}
         {!loading && !error && (
