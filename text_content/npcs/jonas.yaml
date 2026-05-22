@@ -8,7 +8,7 @@ fallbacks:
 
 dialogue:
   name: "I'm Jonas. Some call me the WIZARD. I'm a mentor — I work on MULTIAGENT safety and COMPLEX systems."
-  hi: "Ah, a traveler! Welcome. I am the WIZARD — that is, I write a newsletter where I refer to myself as the wizard in third person. Ask me about MULTIAGENT safety, MACROHISTORY, or why this is all quite funny."
+  hi: "Ah, a traveler! Welcome. I am the WIZARD — that is, I write a newsletter where I refer to myself as the wizard in third person. Ask me about MULTIAGENT safety, CONTAINMENT, MACROHISTORY, or why this is all quite funny."
   look: "Disarmingly brilliant and somehow also very funny. Extraordinarily intelligent with the rare gift of making complex ideas feel playful. The wizard energy is, you realize, completely genuine."
   wizard: "The wizard knows things. Specifically: multi-agent dynamics, complex systems, and why the historical arc of intelligence is the most interesting story there is."
   multiagent: "Single-agent alignment is hard. MULTIAGENT alignment is harder. When you have many systems interacting, new failure modes emerge that aren't predictable from individual behavior."
@@ -16,5 +16,6 @@ dialogue:
   complex: "Complex systems science gives us tools for thinking about emergence, feedback loops, and collective behavior. Useful for thinking about ecosystems of intelligent agents."
   macrohistory: "I love MACROHISTORY — the very long view on how human societies change. Cultural evolution. The rise of cognitive paradigms. It gives alignment work a different frame."
   newsletter: "Yes, I write a newsletter. The wizard discusses alignment and adjacent topics in third person. It's funnier than it sounds. And also, I think, genuinely useful."
+  containment: "Containment in multi-agent systems is hard. You can constrain one agent and another finds the gap. Real CONTAINMENT requires thinking about the whole ecosystem — not individual boxes. The wizard finds this characteristically concerning and fascinating in equal measure."
   systems: "Everything interesting happens at the level of SYSTEMS, not components. That's as true for societies as for ai ecosystems."
   bye: "The wizard bids you farewell. May your priors update smoothly."

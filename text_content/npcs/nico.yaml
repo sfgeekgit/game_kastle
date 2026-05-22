@@ -8,13 +8,14 @@ fallbacks:
 
 dialogue:
   name: "I'm Nico. From Helsinki. I work on COMPOSITIONAL generalization and NEUROSCIENCE."
-  hi: "Hey! I'm interested in how biology might inform AI safety. Also I once got paid to watch Clash Royale while in an FMRI machine. Ask me about GENERALIZATION or BIOLOGY."
+  hi: "Hey! I'm interested in how biology might inform AI safety. Also I once got paid to watch Clash Royale while in an FMRI machine. Ask me about GENERALIZATION, COMPOSITIONAL, NEUROSCIENCE, MECHINTERP, or the FMRI story."
   look: "Warm, curious, and remarkably sharp. The kind of person who makes genuinely interesting connections between fields. Extraordinarily intelligent and somehow still very chill about it."
   fmri: "Last month I got paid to watch an hour of Clash Royale while my brain activity was monitored in an FMRI. It was a study on something — I honestly can't remember what. My brain apparently enjoyed it."
   clash: "Clash Royale. In an FMRI. For science. I got paid. The neuroscientist seemed happy. I was happy. Everyone was happy."
   generalization: "COMPOSITIONAL generalization — can a system understand novel combinations of concepts it's seen in training? Key question for whether an AI actually understands anything or is doing very fancy pattern matching."
   compositional: "Compositionality is how language works — you can understand 'blue elephant wearing a top hat' even if you've never seen it. Getting AI to robustly do this turns out to be hard."
   neuroscience: "Biological systems solve GENERALIZATION in ways we don't fully understand. Studying how brains do it seems useful for building AI that does it."
+  mechinterp: "I come at it from the neuroscience angle — understanding what representations form inside networks using tools from BIOLOGY. The mech interp and neuroscience communities are converging on the same questions from opposite ends."
   biology: "BIOLOGY is an underused resource in AI safety. We have a working example of aligned-enough general intelligence. It's worth studying more carefully."
   ai: "The question is whether AI systems truly generalize or just do very sophisticated pattern matching. BIOLOGY might help us tell the difference."
   castle: "I did not expect an AI safety seminar to be held in a castle in the Czech countryside. And yet here I am, by a fireplace, thinking about generalization. It's a good life."

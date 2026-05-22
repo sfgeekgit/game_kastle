@@ -13,7 +13,7 @@ dialogue:
   monkey: "Southeast Asia. A monkey — from above — direct hit. I've been told this is good luck. I am choosing to believe this. It was not good luck at the time."
   soft: "SOFT optimization means not optimizing too hard for any single objective. A lot of alignment failures come from systems that pursue their goals too effectively. Softer optimization might be safer."
   optimization: "The question is what softer optimization looks like in practice. Not underpowered systems, but systems that don't catastrophically pursue objectives at the expense of everything else."
-  xrisk: "XRISK and SRISK look different when you try to optimize for both. The strategies don't always point the same direction."
+  xrisk: "XRISK and SRISK look different when you try to optimize for both. The strategies don't always point the same direction. containment — limiting what systems can do, maintaining human control — is the practical implementation of xrisk mitigation."
   srisk: "Suffering risk: futures that are bad not because humans go extinct but because things are deeply wrong in other ways. Worth taking seriously alongside XRISK."
   alignment: "I'm specifically interested in what SOFT optimization looks like as an alignment strategy — not maximizing hard objectives but achieving good outcomes with more flexibility."
   thought: "Give me a thought experiment. I love them. The stranger the better."

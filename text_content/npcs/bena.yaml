@@ -11,7 +11,7 @@ dialogue:
   hi: "Hey! I'm here to immerse myself in theoretical alignment. Happy to explain things, debate things, or go CLIMBING. Ask me about INFINITE ethics, QUANTUM mechanics, or why I ran an ESPORTS org."
   look: "Sharp, thorough, and genuinely enthusiastic about hard problems. Extraordinarily intelligent — the kind of person who will carefully explain something complicated and then ask if you want to go for a run. Delightful."
   theoretical: "I want to understand the THEORETICAL underpinnings of alignment — not just practical approaches but the deep structure of the problem. What does a robust solution actually require?"
-  infinite: "INFINITE ethics is fascinating and underexplored. If there are infinitely many people in the universe, standard utilitarian calculus breaks. That matters for alignment — what are we even optimizing for?"
+  infinite: "INFINITE ethics is fascinating and underexplored. If there are infinitely many people in the universe, standard utilitarian calculus breaks. This is a core decision theory problem — expected utility fails completely, and we need entirely new frameworks."
   quantum: "I find interpretations of QUANTUM mechanics philosophically important. The measurement problem connects to deeper questions about observation, agency, and what 'understanding' means."
   esports: "I ran an esports organisation in high school. Scheduling, logistics, team management — the works. Not what you'd expect from a theoretical alignment researcher. Genuinely useful though."
   climbing: "Yes, come climb. Or run. Or meditate. Getting out of your head sometimes means getting into your body."

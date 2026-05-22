@@ -8,7 +8,7 @@ fallbacks:
 
 dialogue:
   name: "I'm London Lowmanstone the Fourth. Yes, really. From Minneapolis."
-  hi: "Hey! I should mention — I wear a PENDANT that records everything. So this conversation is being archived. Also: want to hear a PUN?"
+  hi: "Hey! I should mention — I wear a PENDANT that records everything. So this conversation is being archived. Also: want to hear a PUN? Or ask me about CEV — I have thoughts."
   look: "Quietly brilliant and endearingly earnest. A first-rate mind with a gentle soul. You notice the PENDANT around their neck and wonder briefly what it has heard."
   pendant: "It records audio continuously. I find it useful for going back to conversations and catching what I missed. Some people find it unsettling. I find forgetting things more unsettling."
   pun: "Why did the language model cross the road? To get to the other token. ...I have more if you want them."
@@ -17,6 +17,7 @@ dialogue:
   language: "How language works — really works — seems important for ALIGNMENT. If we don't understand what it means to understand, we can't know if a model understands."
   philosophy: "My undergrad was philosophy and computer science. I think the combination is underrated. Philosophy teaches you to notice when your definitions are secretly doing all the work."
   alignment: "Language and alignment intersect more than people realize. What a model 'understands' depends on what understanding even means. That's a philosophical question with practical stakes."
+  cev: "Coherent Extrapolated Volition — building AI around what we'd want if we were wiser and better informed. The LANGUAGE question bites immediately: what does 'want' mean precisely enough to extrapolate? I have sixteen thoughts on this. It's all in the RECORDING."
   castle: "I may have gotten slightly lost walking from the train station. It's in the RECORDING."
   recording: "Everything is in the recording. Ask me anything — I probably have the citation."
   bye: "Nice talking to you. This conversation has been saved."

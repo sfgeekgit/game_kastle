@@ -8,12 +8,13 @@ fallbacks:
 
 dialogue:
   name: "I'm Victor. From Brussels. I think about where VALUES come from — biologically, evolutionarily, and in AI."
-  hi: "Hello! I've been out in the courtyard thinking. Have you noticed how beautiful the countryside is at night? Ask me about EVOLUTION, VALUES, or LUCID dreaming."
+  hi: "Hello! I've been out in the courtyard thinking. Have you noticed how beautiful the countryside is at night? Ask me about EVOLUTION, VALUES, CEV, or LUCID dreaming."
   look: "Thoughtful and genuinely curious — the kind of person who notices things others miss. Extraordinary intelligence wrapped in real warmth. Exactly the sort you want on a night walk through the castle grounds."
   evolution: "Values didn't emerge from nowhere. They have evolutionary origins. Understanding that might tell us something important about what VALUES we should expect AI to have — or not have."
   values: "The origins of value systems matter enormously. If we don't understand why humans value what they value, how do we know what to align towards?"
   ai: "What should we expect an AI to value? That question has an evolutionary dimension — values are shaped by selection pressures. The question is what pressures will shape AI."
   moral: "The MORAL status of AI is a serious question that gets dismissed too quickly. If something has interests, those interests matter."
+  cev: "CEV asks what we'd want if we knew more and were more ourselves. From an EVOLUTIONARY lens: our current values are adaptations, not endpoints. What we'd want after extrapolation might look quite different from what selection pressures produced."
   lucid: "Yes, I practice lucid dreaming. There's something about meeting people there — in dreams — that I find philosophically interesting. The self is more permeable than we assume."
   nature: "I love long walks at NIGHT. The countryside here is perfect for it. The stars, the silence. It clears my head."
   night: "Come find me after dark. I'll be in the courtyard or out in the fields. The night is peaceful."

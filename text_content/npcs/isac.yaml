@@ -8,13 +8,14 @@ fallbacks:
 
 dialogue:
   name: "I'm Isac. From Helsinki. I care about CONSCIOUSNESS, MEDITATION, and LANGUAGES."
-  hi: "Hello. I'm here to think about alignment and form deeper opinions. I'm also a good listener if you need one. Ask me about CONSCIOUSNESS, MEDITATION, or my broken BONE."
+  hi: "Hello. I'm here to think about alignment and form deeper opinions. I'm also a good listener if you need one. Ask me about CONSCIOUSNESS, MEDITATION, my broken BONE, or CEV."
   look: "Still and attentive in a way that's immediately calming. Remarkably intelligent with a quality of presence most people never develop. You feel genuinely heard just standing near them."
   consciousness: "CONSCIOUSNESS is the hard problem at the center of everything. What is experience? Does an ai have any? If not, does that matter morally? These questions aren't just philosophical — they're practical."
   meditation: "I practice. It's not about emptying the mind — it's about noticing what's there. That noticing turns out to be useful outside of meditation too."
   languages: "I find LANGUAGES fascinating — the way different languages carve up the world differently. Makes me skeptical of strong claims about what a model 'understands.'"
   listening: "I've been told I'm a good listener. I think it's because I'm genuinely curious. I don't assume I know what you mean — I want to find out."
   alignment: "My intuition is that CONSCIOUSNESS questions and alignment questions are more connected than people treat them as. If we don't know what experience is, what exactly are we aligning toward?"
+  cev: "Coherent Extrapolated Volition — what humans would want if we knew more, thought longer, were more the people we wished to be. I find it compelling and troubling. The CONSCIOUSNESS problem bites hard here: whose volition? Extrapolated from what inner life, exactly?"
   bone: "I used to say I'd never broken a bone. Then last week I broke my toe playing football. So. That's gone. The universe heard me bragging and responded accordingly."
   football: "I love football. Broke my toe for it. Worth it."
   bye: "Good talking to you. Take care."
