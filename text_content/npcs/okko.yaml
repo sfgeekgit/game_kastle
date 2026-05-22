@@ -2,9 +2,9 @@ npc_id: okko
 name: "okko"
 
 fallbacks:
-  - "I genuinely don't know. Good question though."
-  - "I'd want to think about that more carefully."
-  - "That's a live question for me. Got a thought experiment?"
+  - "..."
+  - "..."
+  - "..."
 
 dialogue:
   name: "I'm Okko. From Helsinki. I think about SOFT optimization and I once had a MONKEY problem."

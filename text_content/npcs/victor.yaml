@@ -2,9 +2,9 @@ npc_id: victor
 name: "victor"
 
 fallbacks:
-  - "I find I don't have a confident view on that."
-  - "That's a live question for me too."
-  - "Worth a long walk to think through."
+  - "..."
+  - "..."
+  - "..."
 
 dialogue:
   name: "I'm Victor. From Brussels. I think about where VALUES come from — biologically, evolutionarily, and in AI."
