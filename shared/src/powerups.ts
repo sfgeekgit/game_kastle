@@ -23,4 +23,6 @@ export const POWERUPS: PowerupDef[] = [
   { id: 1013, npcId: 'kaarel', keyword: 'containment', skillKey: 'containment' },
   { id: 1014, npcId: 'okko',    keyword: 'xrisk',        skillKey: 'containment' },
   { id: 1015, npcId: 'mikhail', keyword: 'benchmarking', skillKey: 'containment' },
+  { id: 1016, npcId: 'ouro',    keyword: 'math',         skillKey: 'decisionTheory' },
+  { id: 1017, npcId: 'ouro',    keyword: 'coherent',     skillKey: 'cev' },
 ];

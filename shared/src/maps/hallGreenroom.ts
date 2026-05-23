@@ -78,6 +78,7 @@ export const hallGreenroom: MapDef = {
     [w, w, w, w, eL, w, w, w],
   ],
   npcs: [
+    { id: 'ouro',    name: 'Ouro',    x: 3, y: 6,  dialogueFile: 'ouro' },
     { id: 'michele', name: 'Michele', x: 3, y: 20, dialogueFile: 'michele' },
   ],
 };

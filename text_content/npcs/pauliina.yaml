@@ -1,0 +1,26 @@
+npc_id: pauliina
+name: "pauliina"
+
+fallbacks:
+  - "I'd want to sit with that question a bit more before answering."
+  - "That's worth thinking about carefully — I'm not sure yet."
+  - "Good question. I'd need to think on that."
+
+dialogue:
+  name: "I'm Pauliina. From Helsinki. I'm a volunteer here — I'm passionate about STOICISM, NIETZSCHE, and VIRTUE ethics. Also happy to just listen if you need an ear."
+  hi: "Hello! I'm Pauliina — one of the volunteers. I spend a lot of time thinking about STOICISM, NIETZSCHE, and VIRTUE ethics. There's something personal behind all that, involving a CULT. Ask me."
+  look: "Warm and quietly remarkable — the kind of person who makes you feel both genuinely cared for and slightly challenged to be better. She radiates an unusual calm, the kind that seems earned rather than assumed."
+  stoicism: "Marcus Aurelius, Epictetus, Seneca — the whole tradition. The core insight is that you can only control your own responses, not the world. That practice of returning to what you can actually influence leads to EQUANIMITY."
+  equanimity: "Not the absence of feeling — stoics weren't numb. Just not ruled by feeling. There's something very useful about that here, when the stakes feel enormous and the problems feel unsolvable. You still have to be okay."
+  nietzsche: "Everyone thinks Nietzsche is dark and nihilistic. He's actually about overcoming — about the WILL to become what you're capable of. About creating values when old ones have crumbled. Deeply relevant to this moment in history."
+  will: "The will to POWER isn't about domination. It's about self-mastery — the drive to actualize your full potential rather than settling. Nietzsche thought most people never really try."
+  power: "He meant something subtle by it. Not power over others — power over yourself, over your own limitations. A kind of vertical aspiration. Very different from how it gets misquoted."
+  virtue: "Virtue ethics asks: what kind of person should you be? Not just what rules to follow. I think it's deeply underrated in alignment discourse. We obsess over GOALS but not over CHARACTER."
+  goals: "We keep asking: how do we get AI to pursue the right goals? But virtue ethics says the question might be: how do we build something with good CHARACTER? Those aren't the same problem."
+  character: "A virtuous person doesn't need a rulebook for every situation — they've internalized something deeper. They act well because of who they are. Can we build that into AI? I genuinely don't know. But it feels like the right question."
+  cult: "Ha. Yes — until I was six. I came out fine, I think. Though I suppose everyone says that. What it gave me was a very early, very visceral sense of how BELIEFS form — and how little control we have over them at first."
+  beliefs: "If you can be raised to believe almost anything, and those beliefs feel completely natural from the inside, then the practice of PHILOSOPHY becomes urgent. Not academic — urgent. How do you find out which of your beliefs are actually true?"
+  philosophy: "The practice of taking your beliefs seriously enough to question them. Stoicism and Nietzsche are both doing this — just from different starting points. One says: accept what you cannot change. The other says: become who you could be. Both require honesty."
+  mental: "I'm here partly as emotional support — confidential if you need it. AI safety work can be psychologically intense. The stakes feel very real and sometimes very heavy. It's completely reasonable to need to process that with another human."
+  helsinki: "Cold, dark, and quietly wonderful. Finland produces a suspicious number of people who end up at AI safety events. I think there's something about long winters that makes you want to think carefully about the future."
+  bye: "Take care. Come back if you want to talk stoics, Nietzsche, virtue ethics — or nothing philosophical at all. Sometimes that's what you actually need."

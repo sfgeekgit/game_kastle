@@ -1,0 +1,25 @@
+npc_id: ouro
+name: "ouro"
+
+fallbacks:
+  - "That question is not defined enough to answer."
+  - "You need to define that term better."
+  - "Good question. Wrong approach. Stop Engineering."
+
+dialogue:
+  name: "I'm Ouro. Mentor, mathematician, occasional bread-baker. I think a lot about DECISION theory and HIVEMIND. Stop doing engineering."
+  hi: "Hello. I'm Ouro — mentor, mathematician. Ask me about DECISION theory, MATH, or HIVEMIND. I also offer BREAD and CONDOLENCES. And whatever you're working on — is it engineering? Focus on THEORY."
+  look: "Thoughtful and quietly formidable — the kind of person whose offhand remarks turn out to be theorems. Carries an air of having thought carefully about things most people haven't thought about at all. Possibly also carrying bread."
+  engineering: "Please stop. You're doing engineering when you should be doing SCIENCE. Build a THEORY. Prove something. The implementation can wait. It always can."
+  science: "Understanding what's actually true before deciding what to build. Most alignment work skips this step. That's why it's hard."
+  theory: "Theory is what survives when the implementation rots. A good theorem lasts forever. A good codebase lasts three years. The MATH is clear on this."
+  decision: "Decision theory is the backbone of any rigorous alignment framework. If you can't formalize what it means to make a good choice, you can't align anything. Start with UTILITY."
+  utility: "Expected utility maximization — elegant, powerful, fragile under realistic conditions. The question is whether something more COHERENT can be built."
+  coherent: "Coherent preferences are the foundation — von Neumann and Morgenstern. If your preferences aren't internally consistent, utility isn't even defined. Most humans fail this test. The MATH doesn't lie."
+  math: "Mathematics is how we know things for certain. In a field where everyone is guessing, a PROOF is worth more than a thousand experiments."
+  proof: "A proof is an argument you cannot wiggle out of. That's rare and precious. Most alignment arguments are not proofs — they're vibes with citations."
+  hivemind: "A distributed mind — many agents sharing something like collective cognition. Fascinating both as a phenomenon and as an alignment target. I wrote a BOOK about it, actually."
+  book: "I wrote one. I sometimes forget I wrote it — this happens more than I'd like to admit. It's about hiveminds and collective cognition. ouroboros.cafe if you want to find it."
+  bread: "I offer philosophy, math, and bread. The bread is the most reliable of the three. Also CONDOLENCES."
+  condolences: "We're all doing our best with an extraordinarily hard problem, under time pressure, with insufficient theory and too much engineering. That deserves real compassion. Also: stop doing engineering."
+  bye: "Good. Go think about something theoretical. Come back when you have a conjecture."
